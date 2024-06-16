@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/widget/app_start_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_up_page.dart';
+import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -36,6 +37,18 @@ class AppRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const AppStartPage();
+  }
+}
+
+@TypedGoRoute<HomeRoute>(path: HomeRoute.path)
+class HomeRoute extends GoRouteData {
+  const HomeRoute();
+
+  static const path = '/home';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HomePage();
   }
 }
 

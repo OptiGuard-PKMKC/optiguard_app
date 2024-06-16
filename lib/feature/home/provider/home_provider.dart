@@ -13,4 +13,15 @@ class HomeNotifier extends _$HomeNotifier {
   HomeState build() {
     return const HomeState.loading();
   }
+
+  void loadData() async {
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+
+      const data = 'Data loaded';
+      state = const HomeState.loaded(data);
+    } catch (e) {
+      state = const HomeState.error('Failed to load data');
+    }
+  }
 }

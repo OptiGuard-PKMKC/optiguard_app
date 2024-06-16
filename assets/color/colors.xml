@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="background">#F0F4F5</color>
     <color name="primaryColor">#139960</color>
     <color name="mlDarkGrey">#75787b</color>
     <color name="mlMediumGrey">#a7a8aa</color>
