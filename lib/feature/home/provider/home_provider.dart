@@ -16,7 +16,7 @@ class HomeNotifier extends _$HomeNotifier {
 
   void loadData() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
 
       const data = 'Data loaded';
       state = const HomeState.loaded(data);

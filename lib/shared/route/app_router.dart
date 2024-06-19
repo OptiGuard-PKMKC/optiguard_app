@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/app/widget/app_start_page.dart';
+import 'package:flutter_boilerplate/feature/appointment/widget/appointment_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_up_page.dart';
 import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
@@ -49,6 +50,17 @@ class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const HomePage();
+  }
+}
+
+@TypedGoRoute<AppointmentRoute>(path: AppointmentRoute.path)
+class AppointmentRoute extends GoRouteData {
+  const AppointmentRoute();
+  static const path = '/appointment';
+  
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AppointmentPage();
   }
 }
 
