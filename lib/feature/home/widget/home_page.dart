@@ -194,18 +194,20 @@ class HomePage extends ConsumerWidget {
           Row(
             children: [
               cardRow(
-                  'Foto Fundus',
-                  'Ambil foto fundus untuk melihat kesehatan mata',
-                  Icons.camera_alt,
-                  AppColors.blue,
-                  null,),
+                'Foto Fundus',
+                'Ambil foto fundus untuk melihat kesehatan mata',
+                Icons.camera_alt,
+                AppColors.blue,
+                null,
+              ),
               const SizedBox(width: 16),
               cardRow(
-                  'Akses Alat di Faskes',
-                  'Pakai alat yang tersedia di mitra kami',
-                  Icons.device_hub,
-                  AppColors.green,
-                  null,),
+                'Akses Alat di Faskes',
+                'Pakai alat yang tersedia di mitra kami',
+                Icons.device_hub,
+                AppColors.green,
+                null,
+              ),
             ],
           ),
           const SizedBox(height: 32),
@@ -213,7 +215,10 @@ class HomePage extends ConsumerWidget {
             onTap: () {
               ctx.push(AppointmentRoute.path);
             },
-            child: Container(
+            splashColor: Colors.teal.withOpacity(0.3),
+            highlightColor: Colors.teal.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(12),
+            child: Ink(
               padding: const EdgeInsets.all(16),
               width: double.infinity,
               height: 96,

@@ -12,7 +12,7 @@ class AppointmentNotifier extends _$AppointmentNotifier {
 
   void loadData() async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      // await Future.delayed(const Duration(seconds: 1));
 
       const data = 'Data loaded';
       state = const AppointmentState.loaded(data);

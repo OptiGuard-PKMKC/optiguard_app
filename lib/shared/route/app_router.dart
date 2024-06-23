@@ -7,6 +7,7 @@ import 'package:flutter_boilerplate/app/widget/app_start_page.dart';
 import 'package:flutter_boilerplate/feature/appointment/widget/appointment_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_up_page.dart';
+import 'package:flutter_boilerplate/feature/doctor_profile/widget/doctor_profile_page.dart';
 import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -61,6 +62,17 @@ class AppointmentRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const AppointmentPage();
+  }
+}
+
+@TypedGoRoute<DoctorProfileRoute>(path: DoctorProfileRoute.path)
+class DoctorProfileRoute extends GoRouteData {
+  const DoctorProfileRoute();
+  static const path = '/doctorProfile';
+  
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const DoctorProfilePage();
   }
 }
 

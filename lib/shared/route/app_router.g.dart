@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
       $appRoute,
       $homeRoute,
       $appointmentRoute,
+      $doctorProfileRoute,
       $signInRoute,
       $signUpRoute,
     ];
@@ -69,6 +70,29 @@ extension $AppointmentRouteExtension on AppointmentRoute {
 
   String get location => GoRouteData.$location(
         '/appointment',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $doctorProfileRoute => GoRouteData.$route(
+      path: '/doctorProfile',
+      factory: $DoctorProfileRouteExtension._fromState,
+    );
+
+extension $DoctorProfileRouteExtension on DoctorProfileRoute {
+  static DoctorProfileRoute _fromState(GoRouterState state) =>
+      const DoctorProfileRoute();
+
+  String get location => GoRouteData.$location(
+        '/doctorProfile',
       );
 
   void go(BuildContext context) => context.go(location);

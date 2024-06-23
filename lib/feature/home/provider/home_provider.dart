@@ -11,7 +11,7 @@ part 'home_provider.g.dart';
 class HomeNotifier extends _$HomeNotifier {
   @override
   HomeState build() {
-    return const HomeState.loading();
+    return const HomeState.loaded('Data loaded');
   }
 
   void loadData() async {

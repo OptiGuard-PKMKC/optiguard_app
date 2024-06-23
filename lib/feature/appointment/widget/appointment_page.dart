@@ -18,9 +18,17 @@ class AppointmentPage extends ConsumerWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
           backgroundColor: AppColors.green,
+          scrolledUnderElevation: 0,
           toolbarHeight: 64,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_rounded),
+            icon: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: const Icon(Icons.arrow_back_rounded),
+            ),
             onPressed: () {
               context.pop();
             },
@@ -32,21 +40,25 @@ class AppointmentPage extends ConsumerWidget {
                 height: 40,
                 child: TextField(
                   decoration: InputDecoration(
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                     hintText: 'Cari dokter',
                     hintStyle:
                         const TextStyle(color: Colors.white, fontSize: 14),
                     border: InputBorder.none,
-                    filled: true,
-                    fillColor: Colors.white.withOpacity(0.2),
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(color: Colors.transparent),
+                      borderSide:
+                          BorderSide(color: Colors.white.withOpacity(0.7)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(color: Colors.transparent),
+                      borderSide: const BorderSide(color: Colors.white),
                     ),
                   ),
                   style: const TextStyle(color: Colors.white),
@@ -54,7 +66,14 @@ class AppointmentPage extends ConsumerWidget {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.filter_alt_outlined),
+              icon: Container(
+                padding: const EdgeInsets.all(4),
+                child: const Icon(Icons.filter_alt_outlined),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
               onPressed: () {},
             ),
           ])),
@@ -140,7 +159,9 @@ class AppointmentPage extends ConsumerWidget {
 
     Widget cardDoctor() {
       return InkWell(
-        onTap: () {},
+        onTap: () {
+          context.push(DoctorProfileRoute.path);
+        },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           alignment: Alignment.center,

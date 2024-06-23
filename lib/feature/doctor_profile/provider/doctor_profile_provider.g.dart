@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'appointment_provider.dart';
+part of 'doctor_profile_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appointmentNotifierHash() =>
-    r'cf03a1e3967a4662e674b4f45f52cc82d2cc4fc7';
+String _$doctorProfileNotifierHash() =>
+    r'ff3c806273dd71b429621a044dcd3621ea219eb3';
 
-/// See also [AppointmentNotifier].
-@ProviderFor(AppointmentNotifier)
-final appointmentNotifierProvider =
-    AutoDisposeNotifierProvider<AppointmentNotifier, AppointmentState>.internal(
-  AppointmentNotifier.new,
-  name: r'appointmentNotifierProvider',
+/// See also [DoctorProfileNotifier].
+@ProviderFor(DoctorProfileNotifier)
+final doctorProfileNotifierProvider = AutoDisposeNotifierProvider<
+    DoctorProfileNotifier, DoctorProfileState>.internal(
+  DoctorProfileNotifier.new,
+  name: r'doctorProfileNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$appointmentNotifierHash,
+      : _$doctorProfileNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AppointmentNotifier = AutoDisposeNotifier<AppointmentState>;
+typedef _$DoctorProfileNotifier = AutoDisposeNotifier<DoctorProfileState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
