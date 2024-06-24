@@ -8,6 +8,7 @@ import 'package:flutter_boilerplate/feature/appointment/widget/appointment_page.
 import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
 import 'package:flutter_boilerplate/feature/auth/widget/sign_up_page.dart';
 import 'package:flutter_boilerplate/feature/doctor_profile/widget/doctor_profile_page.dart';
+import 'package:flutter_boilerplate/feature/fundus_capture/widget/fundus_capture_page.dart';
 import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -51,6 +52,17 @@ class HomeRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const HomePage();
+  }
+}
+
+@TypedGoRoute<FundusCaptureRoute>(path: FundusCaptureRoute.path)
+class FundusCaptureRoute extends GoRouteData {
+  const FundusCaptureRoute();
+  static const path = '/fundusCapture';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return FundusCapturePage();
   }
 }
 

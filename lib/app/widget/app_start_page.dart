@@ -24,6 +24,6 @@ class AppStartPage extends ConsumerWidget {
           );
         },
         error: (e, st) => const LoadingWidget(),
-        loading: () => const LoadingWidget());
+        loading: () => const LoadingWidget(),);
   }
 }
