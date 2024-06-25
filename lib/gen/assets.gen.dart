@@ -123,12 +123,17 @@ class Assets {
   static const AssetGenImage appLogo = AssetGenImage('assets/app_logo.png');
   static const AssetGenImage appLogoBak =
       AssetGenImage('assets/app_logo_bak.png');
+  static const AssetGenImage avatarExample =
+      AssetGenImage('assets/avatar_example.png');
+  static const AssetGenImage banner01 = AssetGenImage('assets/banner_01.png');
+  static const AssetGenImage banner02 = AssetGenImage('assets/banner_02.png');
   static const $AssetsEnvGen env = $AssetsEnvGen();
   static const $AssetsLangGen lang = $AssetsLangGen();
   static const $AssetsLogoGen logo = $AssetsLogoGen();
 
   /// List of all assets
-  static List<AssetGenImage> get values => [appLogo, appLogoBak];
+  static List<AssetGenImage> get values =>
+      [appLogo, appLogoBak, avatarExample, banner01, banner02];
 }
 
 class AssetGenImage {

@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:optiguard/feature/home/provider/home_provider.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -77,12 +77,21 @@ class HomePage extends ConsumerWidget {
         ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.adjust),
-            onPressed: () {
-              ref.read(routerProvider).go(SignInRoute.path);
-              //ref.read(authNotifierProvider.notifier).logout();
-            },
+            icon: const Icon(Icons.notifications_rounded),
+            onPressed: () {},
           ),
+          const SizedBox(width: 8),
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.green, width: 2),
+              shape: BoxShape.circle,
+            ),
+            child: const CircleAvatar(
+              radius: 20,
+              backgroundImage: AssetImage('assets/avatar_example.png'),
+            ),
+          )
         ],
       ),
       body: _widgetContent(context, ref),
@@ -169,6 +178,11 @@ class HomePage extends ConsumerWidget {
   }
 
   Widget _bodyBanner(BuildContext ctx, WidgetRef ref) {
+    final List<String> banners = [
+      'assets/banner_01.png',
+      'assets/banner_02.png',
+    ];
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
       height: 124,
@@ -176,18 +190,16 @@ class HomePage extends ConsumerWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: 3,
+        itemCount: 2,
         itemBuilder: (context, index) {
           return Container(
             width: 328,
             margin: const EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
-              color: AppColors.blue,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Center(
-              child: Text('Banner ${index + 1} '),
-            ),
+                color: AppColors.blue,
+                borderRadius: BorderRadius.circular(8),
+                image: DecorationImage(
+                    image: AssetImage(banners[index]), fit: BoxFit.cover)),
           );
         },
       ),
@@ -204,12 +216,15 @@ class HomePage extends ConsumerWidget {
     ) {
       return Expanded(
         child: InkWell(
+          splashColor: Colors.grey.withOpacity(0.1),
+          highlightColor: Colors.grey.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(12),
           onTap: () {
             if (route != null) {
               ctx.push(route);
             }
           },
-          child: Container(
+          child: Ink(
             padding: const EdgeInsets.all(16),
             height: 200,
             decoration: BoxDecoration(
