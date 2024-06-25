@@ -19,7 +19,7 @@ class AppStartNotifier extends _$AppStartNotifier {
     final _authState = ref.watch(authNotifierProvider);
 
     if (_authState is AuthStateLoggedIn) {
-      return AppStartState.authenticated();
+      return AppStartState.authenticated(role: _authState.role);
     }
 
     if (_authState is AuthStateLoggedOut) {
@@ -28,7 +28,8 @@ class AppStartNotifier extends _$AppStartNotifier {
 
     final token = await _tokenRepository.fetchToken();
     if (token != null) {
-      return const AppStartState.authenticated();
+      final role = await _tokenRepository.fetchUserRole(token.token);
+      return AppStartState.authenticated(role: role);
     } else {
       return const AppStartState.unauthenticated();
     }

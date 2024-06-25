@@ -20,7 +20,7 @@ mixin _$AuthState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loggedIn,
+    required TResult Function(String role) loggedIn,
     required TResult Function() loggedOut,
     required TResult Function(AppException error) error,
   }) =>
@@ -29,7 +29,7 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loggedIn,
+    TResult? Function(String role)? loggedIn,
     TResult? Function()? loggedOut,
     TResult? Function(AppException error)? error,
   }) =>
@@ -38,7 +38,7 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loggedIn,
+    TResult Function(String role)? loggedIn,
     TResult Function()? loggedOut,
     TResult Function(AppException error)? error,
     required TResult orElse(),
@@ -131,7 +131,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loggedIn,
+    required TResult Function(String role) loggedIn,
     required TResult Function() loggedOut,
     required TResult Function(AppException error) error,
   }) {
@@ -143,7 +143,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loggedIn,
+    TResult? Function(String role)? loggedIn,
     TResult? Function()? loggedOut,
     TResult? Function(AppException error)? error,
   }) {
@@ -155,7 +155,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loggedIn,
+    TResult Function(String role)? loggedIn,
     TResult Function()? loggedOut,
     TResult Function(AppException error)? error,
     required TResult orElse(),
@@ -251,7 +251,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loggedIn,
+    required TResult Function(String role) loggedIn,
     required TResult Function() loggedOut,
     required TResult Function(AppException error) error,
   }) {
@@ -263,7 +263,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loggedIn,
+    TResult? Function(String role)? loggedIn,
     TResult? Function()? loggedOut,
     TResult? Function(AppException error)? error,
   }) {
@@ -275,7 +275,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loggedIn,
+    TResult Function(String role)? loggedIn,
     TResult Function()? loggedOut,
     TResult Function(AppException error)? error,
     required TResult orElse(),
@@ -336,6 +336,8 @@ abstract class _$$AuthStateLoggedInImplCopyWith<$Res> {
   factory _$$AuthStateLoggedInImplCopyWith(_$AuthStateLoggedInImpl value,
           $Res Function(_$AuthStateLoggedInImpl) then) =
       __$$AuthStateLoggedInImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String role});
 }
 
 /// @nodoc
@@ -345,37 +347,62 @@ class __$$AuthStateLoggedInImplCopyWithImpl<$Res>
   __$$AuthStateLoggedInImplCopyWithImpl(_$AuthStateLoggedInImpl _value,
       $Res Function(_$AuthStateLoggedInImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? role = null,
+  }) {
+    return _then(_$AuthStateLoggedInImpl(
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AuthStateLoggedInImpl implements AuthStateLoggedIn {
-  const _$AuthStateLoggedInImpl();
+  const _$AuthStateLoggedInImpl({required this.role});
+
+  @override
+  final String role;
 
   @override
   String toString() {
-    return 'AuthState.loggedIn()';
+    return 'AuthState.loggedIn(role: $role)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$AuthStateLoggedInImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$AuthStateLoggedInImpl &&
+            (identical(other.role, role) || other.role == role));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, role);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthStateLoggedInImplCopyWith<_$AuthStateLoggedInImpl> get copyWith =>
+      __$$AuthStateLoggedInImplCopyWithImpl<_$AuthStateLoggedInImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loggedIn,
+    required TResult Function(String role) loggedIn,
     required TResult Function() loggedOut,
     required TResult Function(AppException error) error,
   }) {
-    return loggedIn();
+    return loggedIn(role);
   }
 
   @override
@@ -383,11 +410,11 @@ class _$AuthStateLoggedInImpl implements AuthStateLoggedIn {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loggedIn,
+    TResult? Function(String role)? loggedIn,
     TResult? Function()? loggedOut,
     TResult? Function(AppException error)? error,
   }) {
-    return loggedIn?.call();
+    return loggedIn?.call(role);
   }
 
   @override
@@ -395,13 +422,13 @@ class _$AuthStateLoggedInImpl implements AuthStateLoggedIn {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loggedIn,
+    TResult Function(String role)? loggedIn,
     TResult Function()? loggedOut,
     TResult Function(AppException error)? error,
     required TResult orElse(),
   }) {
     if (loggedIn != null) {
-      return loggedIn();
+      return loggedIn(role);
     }
     return orElse();
   }
@@ -448,7 +475,13 @@ class _$AuthStateLoggedInImpl implements AuthStateLoggedIn {
 }
 
 abstract class AuthStateLoggedIn implements AuthState {
-  const factory AuthStateLoggedIn() = _$AuthStateLoggedInImpl;
+  const factory AuthStateLoggedIn({required final String role}) =
+      _$AuthStateLoggedInImpl;
+
+  String get role;
+  @JsonKey(ignore: true)
+  _$$AuthStateLoggedInImplCopyWith<_$AuthStateLoggedInImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -491,7 +524,7 @@ class _$AuthStateLoggedOutImpl implements AuthStateLoggedOut {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loggedIn,
+    required TResult Function(String role) loggedIn,
     required TResult Function() loggedOut,
     required TResult Function(AppException error) error,
   }) {
@@ -503,7 +536,7 @@ class _$AuthStateLoggedOutImpl implements AuthStateLoggedOut {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loggedIn,
+    TResult? Function(String role)? loggedIn,
     TResult? Function()? loggedOut,
     TResult? Function(AppException error)? error,
   }) {
@@ -515,7 +548,7 @@ class _$AuthStateLoggedOutImpl implements AuthStateLoggedOut {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loggedIn,
+    TResult Function(String role)? loggedIn,
     TResult Function()? loggedOut,
     TResult Function(AppException error)? error,
     required TResult orElse(),
@@ -647,7 +680,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() loggedIn,
+    required TResult Function(String role) loggedIn,
     required TResult Function() loggedOut,
     required TResult Function(AppException error) error,
   }) {
@@ -659,7 +692,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? loggedIn,
+    TResult? Function(String role)? loggedIn,
     TResult? Function()? loggedOut,
     TResult? Function(AppException error)? error,
   }) {
@@ -671,7 +704,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? loggedIn,
+    TResult Function(String role)? loggedIn,
     TResult Function()? loggedOut,
     TResult Function(AppException error)? error,
     required TResult orElse(),

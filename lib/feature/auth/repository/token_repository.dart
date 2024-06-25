@@ -11,6 +11,8 @@ abstract class TokenRepositoryProtocol {
   Future<void> saveToken(Token token);
 
   Future<Token?> fetchToken();
+
+  Future<String?> fetchUserRole(String token);
 }
 
 final tokenRepositoryProvider = Provider(TokenRepository.new);
@@ -85,4 +87,9 @@ class TokenRepository implements TokenRepositoryProtocol {
 
     return _token;
   }
+
+    Future<String> fetchUserRole(String token) async {
+      // Write code to fetch user role from token
+      return 'user';
+    }
 }

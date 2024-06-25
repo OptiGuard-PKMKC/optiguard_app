@@ -9,7 +9,7 @@ class AuthState with _$AuthState {
 
   const factory AuthState.loading() = _Loading;
 
-  const factory AuthState.loggedIn() = AuthStateLoggedIn;
+  const factory AuthState.loggedIn({required String role}) = AuthStateLoggedIn;
 
   const factory AuthState.loggedOut() = AuthStateLoggedOut;
 

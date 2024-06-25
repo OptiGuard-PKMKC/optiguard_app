@@ -44,8 +44,9 @@ class AuthRepository implements AuthRepositoryProtocol {
       final token = Token.fromJson(success as Map<String, dynamic>);
 
       await tokenRepository.saveToken(token);
+      final role = await tokenRepository.fetchUserRole(token.token);
 
-      return const AuthState.loggedIn();
+      return AuthState.loggedIn(role: role);
     }, error: (error) {
       return AuthState.error(error);
     });
@@ -76,8 +77,9 @@ class AuthRepository implements AuthRepositoryProtocol {
       final token = Token.fromJson(success as Map<String, dynamic>);
 
       await tokenRepository.saveToken(token);
+      final role = await tokenRepository.fetchUserRole(token.token);
 
-      return const AuthState.loggedIn();
+      return AuthState.loggedIn(role: role);
     }, error: (error) {
       return AuthState.error(error);
     });

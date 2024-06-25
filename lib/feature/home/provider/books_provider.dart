@@ -31,7 +31,7 @@ class BooksNotifier extends _$BooksNotifier {
       next.when(
           data: (data) {
             data.maybeWhen(
-                authenticated: () {
+                authenticated: (_) {
                   _fetchBooks();
                 },
                 orElse: () {});
