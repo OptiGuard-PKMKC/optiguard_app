@@ -93,4 +93,5 @@ purge: ## Purges the Flutter
 	@flutter clean
 	@flutter pub get
 
-	
+install_apk_dev: ## Installs the apk in the device
+	@adb install build/app/outputs/flutter-apk/app-development-release.apk
