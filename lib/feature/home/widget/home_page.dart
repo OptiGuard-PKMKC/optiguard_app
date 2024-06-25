@@ -54,43 +54,70 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          toolbarHeight: 64,
-          title: Row(
-            children: [
-              _timeIcon(),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_timeGreeting(), style: const TextStyle(fontSize: 14)),
-                  const Text(
-                    'Tiara',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.adjust),
-              onPressed: () {
-                ref.read(routerProvider).go(SignInRoute.path);
-                //ref.read(authNotifierProvider.notifier).logout();
-              },
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        toolbarHeight: 64,
+        title: Row(
+          children: [
+            _timeIcon(),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(_timeGreeting(), style: const TextStyle(fontSize: 14)),
+                const Text(
+                  'Tiara',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
           ],
         ),
-        body: _widgetContent(context, ref),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            ref.read(homeNotifierProvider.notifier).loadData();
-          },
-          child: const Icon(Icons.add),
-        ));
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.adjust),
+            onPressed: () {
+              ref.read(routerProvider).go(SignInRoute.path);
+              //ref.read(authNotifierProvider.notifier).logout();
+            },
+          ),
+        ],
+      ),
+      body: _widgetContent(context, ref),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     ref.read(homeNotifierProvider.notifier).loadData();
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Beranda',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_rounded),
+            label: 'Rekam Medis',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Edukasi',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble),
+            label: 'Pesan',
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: AppColors.blue,
+        // onTap: _onItemTapped,
+      ),
+    );
   }
 
   Widget _widgetLoading(BuildContext context, WidgetRef ref) {
