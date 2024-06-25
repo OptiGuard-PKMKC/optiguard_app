@@ -1,4 +1,4 @@
-import 'package:flutter_boilerplate/feature/appointment/state/appointment_state.dart';
+import 'package:optiguard/feature/appointment/state/appointment_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'appointment_provider.g.dart';

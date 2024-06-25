@@ -1,5 +1,5 @@
-name: flutter_boilerplate
-description: A simple boilerplate project
+name: optiguard
+description: OptiGuard is a mobile application that helps you to early detect eye diseases using integrated AI.
 version: 1.0.0+1
 publish_to: none
 
@@ -27,6 +27,7 @@ dependencies:
   easy_localization: ^3.0.7
   flutter_image_compress: ^2.3.0
   camera: ^0.10.1
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   build_runner: ^2.4.7

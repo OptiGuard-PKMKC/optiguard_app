@@ -1,5 +1,5 @@
 
-import 'package:flutter_boilerplate/feature/doctor_profile/state/doctor_profile_state.dart';
+import 'package:optiguard/feature/doctor_profile/state/doctor_profile_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'doctor_profile_provider.g.dart';

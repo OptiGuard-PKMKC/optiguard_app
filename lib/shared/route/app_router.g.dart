@@ -9,6 +9,7 @@ part of 'app_router.dart';
 List<RouteBase> get $appRoutes => [
       $appRoute,
       $homeRoute,
+      $homeDoctorRoute,
       $fundusCaptureRoute,
       $appointmentRoute,
       $doctorProfileRoute,
@@ -48,6 +49,29 @@ extension $HomeRouteExtension on HomeRoute {
 
   String get location => GoRouteData.$location(
         '/home',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $homeDoctorRoute => GoRouteData.$route(
+      path: '/homeDoctor',
+      factory: $HomeDoctorRouteExtension._fromState,
+    );
+
+extension $HomeDoctorRouteExtension on HomeDoctorRoute {
+  static HomeDoctorRoute _fromState(GoRouterState state) =>
+      const HomeDoctorRoute();
+
+  String get location => GoRouteData.$location(
+        '/homeDoctor',
       );
 
   void go(BuildContext context) => context.go(location);

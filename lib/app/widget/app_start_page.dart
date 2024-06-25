@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/provider/app_start_provider.dart';
-import 'package:flutter_boilerplate/feature/auth/widget/sign_in_page.dart';
-import 'package:flutter_boilerplate/feature/home/widget/home_page.dart';
-import 'package:flutter_boilerplate/shared/widget/connection_unavailable_widget.dart';
-import 'package:flutter_boilerplate/shared/widget/loading_widget.dart';
+import 'package:optiguard/app/provider/app_start_provider.dart';
+import 'package:optiguard/feature/auth/widget/sign_in_page.dart';
+import 'package:optiguard/feature/home/widget/home_page.dart';
+import 'package:optiguard/feature/home_doctor/widget/home_doctor_page.dart';
+import 'package:optiguard/shared/widget/connection_unavailable_widget.dart';
+import 'package:optiguard/shared/widget/loading_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppStartPage extends ConsumerWidget {
@@ -14,16 +15,23 @@ class AppStartPage extends ConsumerWidget {
     final state = ref.watch(appStartNotifierProvider);
 
     return state.when(
-        data: (data) {
-          return data.maybeWhen(
-            initial: () => const LoadingWidget(),
-            authenticated: (_) => const HomePage(),
-            unauthenticated: SignInPage.new,
-            internetUnAvailable: () => const ConnectionUnavailableWidget(),
-            orElse: () => const LoadingWidget(),
-          );
-        },
-        error: (e, st) => const LoadingWidget(),
-        loading: () => const LoadingWidget(),);
+      data: (data) {
+        return data.maybeWhen(
+          initial: () => const LoadingWidget(),
+          authenticated: (role) {
+            if (role == 'doctor') {
+              return const HomeDoctorPage();
+            } else {
+              return const HomePage();
+            }
+          },
+          unauthenticated: SignInPage.new,
+          internetUnAvailable: () => const ConnectionUnavailableWidget(),
+          orElse: () => const LoadingWidget(),
+        );
+      },
+      error: (e, st) => const LoadingWidget(),
+      loading: () => const LoadingWidget(),
+    );
   }
 }

@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:optiguard/feature/home/provider/home_provider.dart';
+import 'package:optiguard/feature/home_doctor/provider/home_provider.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+class HomeDoctorPage extends ConsumerWidget {
+  const HomeDoctorPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +29,7 @@ class HomePage extends ConsumerWidget {
                 children: [
                   Text('Selamat pagi,', style: TextStyle(fontSize: 14)),
                   Text(
-                    'Tiara',
+                    'dr. Rudi',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ],
@@ -91,8 +91,6 @@ class HomePage extends ConsumerWidget {
             _bodyBanner(context, ref),
             _bodyMainFeatures(context, ref),
             _bodyAppointment(context, ref),
-            _bodyAdaptor(context, ref),
-            _bodyArticle(context, ref),
             Text(data),
           ],
         ),
@@ -367,183 +365,6 @@ class HomePage extends ConsumerWidget {
                               size: 20,
                             ),
                             const SizedBox(width: 4),
-                            Text('08.00 - 10.00'),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                }),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _bodyAdaptor(BuildContext context, WidgetRef ref) {
-    return Container(
-      margin: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Jadwal Akses Alat',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                ElevatedButton(
-                    onPressed: () {}, child: const Text('Lihat Semua')),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            alignment: Alignment.center,
-            height: 120,
-            width: double.infinity,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 328,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Puskesmas Bojongsoang',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Container(
-                                width: 54,
-                                height: 54,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Row(
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              size: 20,
-                            ),
-                            SizedBox(width: 4),
-                            Text('08.00 - 10.00'),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                }),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _bodyArticle(BuildContext context, WidgetRef ref) {
-    return Container(
-      height: 200,
-      margin: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Artikel Terbaru',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                ElevatedButton(
-                    onPressed: () {}, child: const Text('Lihat Semua')),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          Container(
-            alignment: Alignment.center,
-            height: 240,
-            width: double.infinity,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Container(
-                    width: 200,
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Puskesmas',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Container(
-                                width: 54,
-                                height: 54,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        const Row(
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              size: 20,
-                            ),
-                            SizedBox(width: 4),
                             Text('08.00 - 10.00'),
                           ],
                         )

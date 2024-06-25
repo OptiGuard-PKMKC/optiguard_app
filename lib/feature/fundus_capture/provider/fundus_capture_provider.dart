@@ -1,4 +1,4 @@
-import 'package:flutter_boilerplate/feature/fundus_capture/state/fundus_capture_state.dart';
+import 'package:optiguard/feature/fundus_capture/state/fundus_capture_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'fundus_capture_provider.g.dart';

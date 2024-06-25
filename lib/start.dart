@@ -3,10 +3,10 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/app/app.dart';
-import 'package:flutter_boilerplate/shared/util/camera.dart';
-import 'package:flutter_boilerplate/shared/util/logger.dart';
-import 'package:flutter_boilerplate/shared/util/platform_type.dart';
+import 'package:optiguard/app/app.dart';
+import 'package:optiguard/shared/util/camera.dart';
+import 'package:optiguard/shared/util/logger.dart';
+import 'package:optiguard/shared/util/platform_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> start() async {

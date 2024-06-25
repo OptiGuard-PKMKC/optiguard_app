@@ -2,9 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_boilerplate/feature/fundus_capture/provider/fundus_capture_provider.dart';
-import 'package:flutter_boilerplate/shared/constants/app_theme.dart';
-import 'package:flutter_boilerplate/shared/util/camera.dart';
+import 'package:optiguard/feature/fundus_capture/provider/fundus_capture_provider.dart';
+import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/util/camera.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 

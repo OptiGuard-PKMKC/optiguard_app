@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_boilerplate/feature/home/model/book.dart';
+import 'package:optiguard/feature/home/model/book.dart';
 
 class RowBookWidget extends StatelessWidget {
   final Book book;

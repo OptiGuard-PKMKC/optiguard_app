@@ -1,5 +1,5 @@
-import 'package:flutter_boilerplate/gen/assets.gen.dart';
-import 'package:flutter_boilerplate/start.dart';
+import 'package:optiguard/gen/assets.gen.dart';
+import 'package:optiguard/start.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
