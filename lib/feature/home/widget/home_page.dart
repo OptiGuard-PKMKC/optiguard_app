@@ -9,6 +9,48 @@ import 'package:go_router/go_router.dart';
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
+  Icon _timeIcon() {
+    final hour = DateTime.now().hour;
+    if (hour >= 5 && hour < 11) {
+      return const Icon(
+        Icons.wb_sunny,
+        color: Colors.yellow,
+        size: 36,
+      );
+    } else if (hour >= 11 && hour < 3) {
+      return Icon(
+        Icons.wb_sunny,
+        color: Colors.yellow[700],
+        size: 36,
+      );
+    } else if (hour >= 15 && hour < 18) {
+      return Icon(
+        Icons.nightlight_round,
+        color: Colors.orange[700],
+        size: 36,
+      );
+    } else {
+      return Icon(
+        Icons.nightlight_round,
+        color: Colors.blue[700],
+        size: 36,
+      );
+    }
+  }
+
+  String _timeGreeting() {
+    final hour = DateTime.now().hour;
+    if (hour >= 5 && hour < 11) {
+      return 'Selamat pagi,';
+    } else if (hour >= 11 && hour < 15) {
+      return 'Selamat siang,';
+    } else if (hour >= 15 && hour < 18) {
+      return 'Selamat sore,';
+    } else {
+      return 'Selamat malam,';
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -18,17 +60,13 @@ class HomePage extends ConsumerWidget {
           toolbarHeight: 64,
           title: Row(
             children: [
-              Icon(
-                Icons.sunny,
-                color: Colors.yellow[700],
-                size: 36,
-              ),
+              _timeIcon(),
               const SizedBox(width: 10),
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Selamat pagi,', style: TextStyle(fontSize: 14)),
-                  Text(
+                  Text(_timeGreeting(), style: const TextStyle(fontSize: 14)),
+                  const Text(
                     'Tiara',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
