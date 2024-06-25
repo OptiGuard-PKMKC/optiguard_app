@@ -137,20 +137,29 @@ class AppointmentPage extends ConsumerWidget {
   }
 
   Widget _bodyDoctorList(BuildContext context, WidgetRef ref) {
-    Widget iconBadge(IconData icon, String text) {
+    Widget iconBadge(IconData icon, Color? iconColor, String text) {
+      var iColor = AppColors.blue;
+
+      if (iconColor != null) {
+        iColor = iconColor;
+      }
+
       return Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.3),
+          border: Border.all(color: Colors.black12),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 16, color: Colors.grey[700]),
+            Icon(icon, size: 16, color: iColor),
             const SizedBox(width: 6),
             Text(
               text,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black54),
             ),
           ],
         ),
@@ -187,31 +196,15 @@ class AppointmentPage extends ConsumerWidget {
                   ),
                   const Text('Dokter Spesialis Mata'),
                   const SizedBox(
-                    height: 8,
+                    height: 20,
                   ),
                   Row(
                     children: [
-                      iconBadge(Icons.work_history, '3 tahun'),
+                      iconBadge(Icons.work_history, null, '3 tahun'),
                       const SizedBox(width: 8),
-                      iconBadge(Icons.star, '4.5'),
+                      iconBadge(Icons.star, Colors.orange, '4.5'),
                     ],
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  SizedBox(
-                    height: 32,
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.blue,
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                        ),
-                        child: const Text(
-                          'Booking',
-                          style: TextStyle(fontSize: 14, color: Colors.white),
-                        )),
-                  )
                 ],
               )
             ],
