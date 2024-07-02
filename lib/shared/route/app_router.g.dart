@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
       $homeRoute,
       $homeDoctorRoute,
       $fundusCaptureRoute,
+      $fundusDetailRoute,
       $appointmentRoute,
       $doctorProfileRoute,
       $signInRoute,
@@ -95,6 +96,29 @@ extension $FundusCaptureRouteExtension on FundusCaptureRoute {
 
   String get location => GoRouteData.$location(
         '/fundusCapture',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $fundusDetailRoute => GoRouteData.$route(
+      path: '/fundusDetail',
+      factory: $FundusDetailRouteExtension._fromState,
+    );
+
+extension $FundusDetailRouteExtension on FundusDetailRoute {
+  static FundusDetailRoute _fromState(GoRouterState state) =>
+      const FundusDetailRoute();
+
+  String get location => GoRouteData.$location(
+        '/fundusDetail',
       );
 
   void go(BuildContext context) => context.go(location);

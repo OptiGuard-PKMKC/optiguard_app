@@ -17,7 +17,7 @@ class HomePage extends ConsumerWidget {
         color: Colors.yellow,
         size: 36,
       );
-    } else if (hour >= 11 && hour < 3) {
+    } else if (hour >= 11 && hour < 15) {
       return Icon(
         Icons.wb_sunny,
         color: Colors.yellow[700],

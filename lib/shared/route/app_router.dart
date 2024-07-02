@@ -9,6 +9,8 @@ import 'package:optiguard/feature/auth/widget/sign_in_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_up_page.dart';
 import 'package:optiguard/feature/doctor_profile/widget/doctor_profile_page.dart';
 import 'package:optiguard/feature/fundus_capture/widget/fundus_capture_page.dart';
+import 'package:optiguard/feature/fundus_capture/widget/fundus_image_page.dart';
+import 'package:optiguard/feature/fundus_record/widget/fundus_detail_page.dart';
 import 'package:optiguard/feature/home/widget/home_page.dart';
 import 'package:optiguard/feature/home_doctor/widget/home_doctor_page.dart';
 import 'package:go_router/go_router.dart';
@@ -75,7 +77,18 @@ class FundusCaptureRoute extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return FundusCapturePage();
+    return const FundusCapturePage();
+  }
+}
+
+@TypedGoRoute<FundusDetailRoute>(path: FundusDetailRoute.path)
+class FundusDetailRoute extends GoRouteData {
+  const FundusDetailRoute();
+  static const path = '/fundusDetail';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FundusDetailPage();
   }
 }
 
