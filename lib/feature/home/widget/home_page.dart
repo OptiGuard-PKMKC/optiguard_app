@@ -57,7 +57,8 @@ class HomePage extends ConsumerWidget {
             _bodyAppointment(context, ref),
             _bodyAdaptor(context, ref),
             _bodyArticle(context, ref),
-            Text(data),
+            _bodyVideo(context, ref),
+            // Text(data),
           ],
         ),
       ),
@@ -256,7 +257,7 @@ class HomePage extends ConsumerWidget {
               children: [
                 const Text(
                   'Janji Temu',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
                 ElevatedButton(
                     onPressed: () {}, child: const Text('Lihat Semua')),
@@ -362,7 +363,7 @@ class HomePage extends ConsumerWidget {
               children: [
                 const Text(
                   'Jadwal Akses Alat',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
                 ElevatedButton(
                     onPressed: () {}, child: const Text('Lihat Semua')),
@@ -440,7 +441,6 @@ class HomePage extends ConsumerWidget {
 
   Widget _bodyArticle(BuildContext context, WidgetRef ref) {
     return Container(
-      height: 200,
       margin: const EdgeInsets.all(12),
       child: Column(
         children: [
@@ -450,8 +450,8 @@ class HomePage extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
-                  'Artikel Terbaru',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  'Artikel Favorit',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
                 ElevatedButton(
                     onPressed: () {}, child: const Text('Lihat Semua')),
@@ -461,7 +461,7 @@ class HomePage extends ConsumerWidget {
           const SizedBox(height: 12),
           Container(
             alignment: Alignment.center,
-            height: 240,
+            height: 172,
             width: double.infinity,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -476,47 +476,87 @@ class HomePage extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
+                          height: 100,
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Puskesmas',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Container(
-                                width: 54,
-                                height: 54,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              )
-                            ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                            'Judul artikel sangat panjgang untuk testing blabl balbsda balsdb',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500)),
+                      ],
+                    ),
+                  );
+                }),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _bodyVideo(BuildContext context, WidgetRef ref) {
+    return Container(
+      margin: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Video Rekomendasi',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                ),
+                ElevatedButton(
+                    onPressed: () {}, child: const Text('Lihat Semua')),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          Container(
+            alignment: Alignment.center,
+            height: 172,
+            width: double.infinity,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 200,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 100,
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                         const SizedBox(height: 8),
-                        const Row(
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              size: 20,
-                            ),
-                            SizedBox(width: 4),
-                            Text('08.00 - 10.00'),
-                          ],
-                        )
+                        Text(
+                            'Judul video sangat panjgang untuk testing blabl balbsda balsdb',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w500)),
                       ],
                     ),
                   );
