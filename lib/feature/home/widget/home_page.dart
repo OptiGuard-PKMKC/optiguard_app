@@ -117,7 +117,7 @@ class HomePage extends ConsumerWidget {
           },
           child: Ink(
             padding: const EdgeInsets.all(16),
-            height: 200,
+            height: 180,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
@@ -141,12 +141,17 @@ class HomePage extends ConsumerWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                      fontSize: 16, fontWeight: FontWeight.w700, height: 1.2),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   subTitle,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[700],
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
                 ),
               ],
             ),
@@ -178,67 +183,23 @@ class HomePage extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 32),
-          InkWell(
-            onTap: () {
-              ctx.push(AppointmentRoute.path);
-            },
-            splashColor: Colors.teal.withOpacity(0.3),
-            highlightColor: Colors.teal.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(12),
-            child: Ink(
-              padding: const EdgeInsets.all(16),
-              width: double.infinity,
-              height: 96,
-              decoration: BoxDecoration(
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: const Icon(
-                            Icons.medical_services,
-                            size: 32,
-                            color: AppColors.green,
-                          )),
-                      const SizedBox(width: 16),
-                      const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Jadwal Dokter',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Lihat jadwal dokter dan buat janji',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_rounded,
-                    size: 32,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              cardRow(
+                  'Asesmen Mandiri',
+                  'Ketahui kesehatan retina secara mandiri',
+                  Icons.remove_red_eye_sharp,
+                  Colors.orange,
+                  AmslerHelpRoute.path),
+              const SizedBox(width: 16),
+              cardRow(
+                  'Jadwal Dokter',
+                  'Cari jadwal dokter dan buat janji',
+                  Icons.medical_services,
+                  AppColors.green,
+                  AppointmentRoute.path),
+            ],
           ),
         ],
       ),

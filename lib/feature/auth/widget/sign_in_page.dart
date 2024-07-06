@@ -52,13 +52,13 @@ class SignInPage extends ConsumerWidget {
                         const Text(
                           'Masuk ke akun Anda',
                           style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
                           ),
                         ),
 
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 16),
 
                         // form
                         TextInput(
@@ -68,7 +68,7 @@ class SignInPage extends ConsumerWidget {
                           obscureText: false,
                         ),
 
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 14),
 
                         TextInput(
                           controller: _passwordController,
@@ -78,12 +78,12 @@ class SignInPage extends ConsumerWidget {
                         ),
 
                         // button
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 14),
 
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: SizedBox(
-                            height: 35,
+                            height: 44,
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -94,13 +94,13 @@ class SignInPage extends ConsumerWidget {
                                 ),
                               ),
                               onPressed: () {
-                                ref.read(routerProvider).go(MainRoute.path);
+                                ref.read(routerProvider).go(MainPatientRoute.path);
                               },
                               child: const Text(
                                 'Masuk',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),

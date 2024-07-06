@@ -5,6 +5,10 @@
 import 'package:flutter/material.dart';
 import 'package:optiguard/app/widget/app_start_page.dart';
 import 'package:optiguard/app/widget/main_page.dart';
+import 'package:optiguard/feature/amsler_grid/widget/amsler_failed_page.dart';
+import 'package:optiguard/feature/amsler_grid/widget/amsler_help_page.dart';
+import 'package:optiguard/feature/amsler_grid/widget/amsler_success_page.dart';
+import 'package:optiguard/feature/amsler_grid/widget/amsler_test_page.dart';
 import 'package:optiguard/feature/appointment/widget/appointment_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_in_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_up_page.dart';
@@ -56,9 +60,9 @@ class AppRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<MainRoute>(path: MainRoute.path)
-class MainRoute extends GoRouteData {
-  const MainRoute();
+@TypedGoRoute<MainPatientRoute>(path: MainPatientRoute.path)
+class MainPatientRoute extends GoRouteData {
+  const MainPatientRoute();
 
   static const path = '/mainPatient';
 
@@ -83,6 +87,50 @@ class MainDoctorRoute extends GoRouteData {
 /**
  * Feature Routes
  */
+@TypedGoRoute<AmslerFailedRoute>(path: AmslerFailedRoute.path)
+class AmslerFailedRoute extends GoRouteData {
+  const AmslerFailedRoute();
+  static const path = '/amslerFailed';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AmslerFailedPage();
+  }
+}
+
+@TypedGoRoute<AmslerHelpRoute>(path: AmslerHelpRoute.path)
+class AmslerHelpRoute extends GoRouteData {
+  const AmslerHelpRoute();
+  static const path = '/amslerHelp';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AmslerHelpPage();
+  }
+}
+
+@TypedGoRoute<AmslerSuccessRoute>(path: AmslerSuccessRoute.path)
+class AmslerSuccessRoute extends GoRouteData {
+  const AmslerSuccessRoute();
+  static const path = '/amslerSuccess';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AmslerSuccessPage();
+  }
+}
+
+@TypedGoRoute<AmslerTestRoute>(path: AmslerTestRoute.path)
+class AmslerTestRoute extends GoRouteData {
+  const AmslerTestRoute();
+  static const path = '/amslerTest';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AmslerTestPage();
+  }
+}
+
 @TypedGoRoute<AppointmentRoute>(path: AppointmentRoute.path)
 class AppointmentRoute extends GoRouteData {
   const AppointmentRoute();

@@ -8,8 +8,12 @@ part of 'app_router.dart';
 
 List<RouteBase> get $appRoutes => [
       $appRoute,
-      $mainRoute,
+      $mainPatientRoute,
       $mainDoctorRoute,
+      $amslerFailedRoute,
+      $amslerHelpRoute,
+      $amslerSuccessRoute,
+      $amslerTestRoute,
       $appointmentRoute,
       $chatRoute,
       $chatRoomRoute,
@@ -48,13 +52,14 @@ extension $AppRouteExtension on AppRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $mainRoute => GoRouteData.$route(
+RouteBase get $mainPatientRoute => GoRouteData.$route(
       path: '/mainPatient',
-      factory: $MainRouteExtension._fromState,
+      factory: $MainPatientRouteExtension._fromState,
     );
 
-extension $MainRouteExtension on MainRoute {
-  static MainRoute _fromState(GoRouterState state) => const MainRoute();
+extension $MainPatientRouteExtension on MainPatientRoute {
+  static MainPatientRoute _fromState(GoRouterState state) =>
+      const MainPatientRoute();
 
   String get location => GoRouteData.$location(
         '/mainPatient',
@@ -81,6 +86,98 @@ extension $MainDoctorRouteExtension on MainDoctorRoute {
 
   String get location => GoRouteData.$location(
         '/mainDoctor',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $amslerFailedRoute => GoRouteData.$route(
+      path: '/amslerFailed',
+      factory: $AmslerFailedRouteExtension._fromState,
+    );
+
+extension $AmslerFailedRouteExtension on AmslerFailedRoute {
+  static AmslerFailedRoute _fromState(GoRouterState state) =>
+      const AmslerFailedRoute();
+
+  String get location => GoRouteData.$location(
+        '/amslerFailed',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $amslerHelpRoute => GoRouteData.$route(
+      path: '/amslerHelp',
+      factory: $AmslerHelpRouteExtension._fromState,
+    );
+
+extension $AmslerHelpRouteExtension on AmslerHelpRoute {
+  static AmslerHelpRoute _fromState(GoRouterState state) =>
+      const AmslerHelpRoute();
+
+  String get location => GoRouteData.$location(
+        '/amslerHelp',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $amslerSuccessRoute => GoRouteData.$route(
+      path: '/amslerSuccess',
+      factory: $AmslerSuccessRouteExtension._fromState,
+    );
+
+extension $AmslerSuccessRouteExtension on AmslerSuccessRoute {
+  static AmslerSuccessRoute _fromState(GoRouterState state) =>
+      const AmslerSuccessRoute();
+
+  String get location => GoRouteData.$location(
+        '/amslerSuccess',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $amslerTestRoute => GoRouteData.$route(
+      path: '/amslerTest',
+      factory: $AmslerTestRouteExtension._fromState,
+    );
+
+extension $AmslerTestRouteExtension on AmslerTestRoute {
+  static AmslerTestRoute _fromState(GoRouterState state) =>
+      const AmslerTestRoute();
+
+  String get location => GoRouteData.$location(
+        '/amslerTest',
       );
 
   void go(BuildContext context) => context.go(location);

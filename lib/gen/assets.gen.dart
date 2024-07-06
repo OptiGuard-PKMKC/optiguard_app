@@ -25,6 +25,30 @@ class $AssetsEnvGen {
   List<String> get values => [aEnvDevelopment, aEnvProduction, aEnvStaging];
 }
 
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/amsler_failed.png
+  AssetGenImage get amslerFailed =>
+      const AssetGenImage('assets/images/amsler_failed.png');
+
+  /// File path: assets/images/amsler_grid.png
+  AssetGenImage get amslerGrid =>
+      const AssetGenImage('assets/images/amsler_grid.png');
+
+  /// File path: assets/images/amsler_help.png
+  AssetGenImage get amslerHelp =>
+      const AssetGenImage('assets/images/amsler_help.png');
+
+  /// File path: assets/images/amsler_success.png
+  AssetGenImage get amslerSuccess =>
+      const AssetGenImage('assets/images/amsler_success.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values =>
+      [amslerFailed, amslerGrid, amslerHelp, amslerSuccess];
+}
+
 class $AssetsLangGen {
   const $AssetsLangGen();
 
@@ -130,6 +154,7 @@ class Assets {
   static const AssetGenImage banner01 = AssetGenImage('assets/banner_01.png');
   static const AssetGenImage banner02 = AssetGenImage('assets/banner_02.png');
   static const $AssetsEnvGen env = $AssetsEnvGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLangGen lang = $AssetsLangGen();
   static const $AssetsLogoGen logo = $AssetsLogoGen();
 

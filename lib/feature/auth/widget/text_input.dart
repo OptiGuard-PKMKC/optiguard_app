@@ -17,18 +17,25 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade400, width: 2)),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade600, width: 2)),
-          labelText: labelText,
-          labelStyle: TextStyle(color: Colors.grey.shade600),
-          hintText: hintText,
-          hintStyle: TextStyle(color: Colors.grey.shade600),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: Colors.grey.shade400, width: 2),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TextFormField(
+            controller: controller,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              labelText: labelText,
+              labelStyle: TextStyle(color: Colors.grey.shade600),
+              hintText: hintText,
+              hintStyle: TextStyle(color: Colors.grey.shade600),
+              contentPadding: const EdgeInsets.symmetric(vertical: 2),
+            ),
+          ),
         ),
       ),
     );

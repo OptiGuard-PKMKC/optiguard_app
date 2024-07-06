@@ -5,6 +5,7 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
     required this.title,
+    this.textColor = Colors.white,
     this.color = AppColors.blue,
     this.icon,
     this.iconColor = Colors.white,
@@ -12,6 +13,7 @@ class CustomElevatedButton extends StatelessWidget {
   });
 
   final String title;
+  final Color textColor;
   final Color? color;
   final IconData? icon;
   final Color iconColor;
@@ -41,7 +43,7 @@ class CustomElevatedButton extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             title,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: textColor),
           ),
         ],
       ),

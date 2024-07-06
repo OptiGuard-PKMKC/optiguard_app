@@ -7,6 +7,8 @@ class SplashPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      extendBody: true,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
