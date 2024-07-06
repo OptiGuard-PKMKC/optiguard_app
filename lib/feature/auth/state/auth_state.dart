@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:optiguard/shared/constants/role.dart';
 import 'package:optiguard/shared/http/app_exception.dart';
 
 part 'auth_state.freezed.dart';
@@ -9,7 +10,7 @@ class AuthState with _$AuthState {
 
   const factory AuthState.loading() = _Loading;
 
-  const factory AuthState.loggedIn({required String role}) = AuthStateLoggedIn;
+  const factory AuthState.loggedIn({required Role role}) = AuthStateLoggedIn;
 
   const factory AuthState.loggedOut() = AuthStateLoggedOut;
 

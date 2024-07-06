@@ -21,7 +21,7 @@ mixin _$AppStartState {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function(String role) authenticated,
+    required TResult Function(Role role) authenticated,
     required TResult Function() authenticatedAnonymous,
   }) =>
       throw _privateConstructorUsedError;
@@ -30,7 +30,7 @@ mixin _$AppStartState {
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
     TResult? Function()? internetUnAvailable,
-    TResult? Function(String role)? authenticated,
+    TResult? Function(Role role)? authenticated,
     TResult? Function()? authenticatedAnonymous,
   }) =>
       throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ mixin _$AppStartState {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function(String role)? authenticated,
+    TResult Function(Role role)? authenticated,
     TResult Function()? authenticatedAnonymous,
     required TResult orElse(),
   }) =>
@@ -134,7 +134,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function(String role) authenticated,
+    required TResult Function(Role role) authenticated,
     required TResult Function() authenticatedAnonymous,
   }) {
     return initial();
@@ -146,7 +146,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
     TResult? Function()? internetUnAvailable,
-    TResult? Function(String role)? authenticated,
+    TResult? Function(Role role)? authenticated,
     TResult? Function()? authenticatedAnonymous,
   }) {
     return initial?.call();
@@ -158,7 +158,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function(String role)? authenticated,
+    TResult Function(Role role)? authenticated,
     TResult Function()? authenticatedAnonymous,
     required TResult orElse(),
   }) {
@@ -255,7 +255,7 @@ class _$UnauthenticatedImpl implements Unauthenticated {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function(String role) authenticated,
+    required TResult Function(Role role) authenticated,
     required TResult Function() authenticatedAnonymous,
   }) {
     return unauthenticated();
@@ -267,7 +267,7 @@ class _$UnauthenticatedImpl implements Unauthenticated {
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
     TResult? Function()? internetUnAvailable,
-    TResult? Function(String role)? authenticated,
+    TResult? Function(Role role)? authenticated,
     TResult? Function()? authenticatedAnonymous,
   }) {
     return unauthenticated?.call();
@@ -279,7 +279,7 @@ class _$UnauthenticatedImpl implements Unauthenticated {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function(String role)? authenticated,
+    TResult Function(Role role)? authenticated,
     TResult Function()? authenticatedAnonymous,
     required TResult orElse(),
   }) {
@@ -377,7 +377,7 @@ class _$InternetUnAvailableImpl implements _InternetUnAvailable {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function(String role) authenticated,
+    required TResult Function(Role role) authenticated,
     required TResult Function() authenticatedAnonymous,
   }) {
     return internetUnAvailable();
@@ -389,7 +389,7 @@ class _$InternetUnAvailableImpl implements _InternetUnAvailable {
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
     TResult? Function()? internetUnAvailable,
-    TResult? Function(String role)? authenticated,
+    TResult? Function(Role role)? authenticated,
     TResult? Function()? authenticatedAnonymous,
   }) {
     return internetUnAvailable?.call();
@@ -401,7 +401,7 @@ class _$InternetUnAvailableImpl implements _InternetUnAvailable {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function(String role)? authenticated,
+    TResult Function(Role role)? authenticated,
     TResult Function()? authenticatedAnonymous,
     required TResult orElse(),
   }) {
@@ -463,7 +463,7 @@ abstract class _$$AppAuthenticatedImplCopyWith<$Res> {
           $Res Function(_$AppAuthenticatedImpl) then) =
       __$$AppAuthenticatedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String role});
+  $Res call({Role role});
 }
 
 /// @nodoc
@@ -483,7 +483,7 @@ class __$$AppAuthenticatedImplCopyWithImpl<$Res>
       role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Role,
     ));
   }
 }
@@ -494,7 +494,7 @@ class _$AppAuthenticatedImpl implements AppAuthenticated {
   const _$AppAuthenticatedImpl({required this.role});
 
   @override
-  final String role;
+  final Role role;
 
   @override
   String toString() {
@@ -525,7 +525,7 @@ class _$AppAuthenticatedImpl implements AppAuthenticated {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function(String role) authenticated,
+    required TResult Function(Role role) authenticated,
     required TResult Function() authenticatedAnonymous,
   }) {
     return authenticated(role);
@@ -537,7 +537,7 @@ class _$AppAuthenticatedImpl implements AppAuthenticated {
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
     TResult? Function()? internetUnAvailable,
-    TResult? Function(String role)? authenticated,
+    TResult? Function(Role role)? authenticated,
     TResult? Function()? authenticatedAnonymous,
   }) {
     return authenticated?.call(role);
@@ -549,7 +549,7 @@ class _$AppAuthenticatedImpl implements AppAuthenticated {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function(String role)? authenticated,
+    TResult Function(Role role)? authenticated,
     TResult Function()? authenticatedAnonymous,
     required TResult orElse(),
   }) {
@@ -602,10 +602,10 @@ class _$AppAuthenticatedImpl implements AppAuthenticated {
 }
 
 abstract class AppAuthenticated implements AppStartState {
-  const factory AppAuthenticated({required final String role}) =
+  const factory AppAuthenticated({required final Role role}) =
       _$AppAuthenticatedImpl;
 
-  String get role;
+  Role get role;
   @JsonKey(ignore: true)
   _$$AppAuthenticatedImplCopyWith<_$AppAuthenticatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -655,7 +655,7 @@ class _$AppAuthenticatedAnonymousImpl implements AppAuthenticatedAnonymous {
     required TResult Function() initial,
     required TResult Function() unauthenticated,
     required TResult Function() internetUnAvailable,
-    required TResult Function(String role) authenticated,
+    required TResult Function(Role role) authenticated,
     required TResult Function() authenticatedAnonymous,
   }) {
     return authenticatedAnonymous();
@@ -667,7 +667,7 @@ class _$AppAuthenticatedAnonymousImpl implements AppAuthenticatedAnonymous {
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
     TResult? Function()? internetUnAvailable,
-    TResult? Function(String role)? authenticated,
+    TResult? Function(Role role)? authenticated,
     TResult? Function()? authenticatedAnonymous,
   }) {
     return authenticatedAnonymous?.call();
@@ -679,7 +679,7 @@ class _$AppAuthenticatedAnonymousImpl implements AppAuthenticatedAnonymous {
     TResult Function()? initial,
     TResult Function()? unauthenticated,
     TResult Function()? internetUnAvailable,
-    TResult Function(String role)? authenticated,
+    TResult Function(Role role)? authenticated,
     TResult Function()? authenticatedAnonymous,
     required TResult orElse(),
   }) {

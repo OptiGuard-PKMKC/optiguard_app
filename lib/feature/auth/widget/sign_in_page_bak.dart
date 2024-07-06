@@ -63,7 +63,7 @@ class SignInPage extends ConsumerWidget {
             // ref
             //     .read(authNotifierProvider.notifier)
             //     .login(_emailController.text, _passwordController.text);
-            ref.read(routerProvider).go(HomeRoute.path);
+            ref.read(routerProvider).go(MainRoute.path);
           },
           child: Text("sign_in".tr()),
         ));

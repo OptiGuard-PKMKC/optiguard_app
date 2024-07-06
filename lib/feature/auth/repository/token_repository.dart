@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:optiguard/feature/auth/model/token.dart';
+import 'package:optiguard/shared/constants/role.dart';
 import 'package:optiguard/shared/constants/store_key.dart';
 import 'package:optiguard/shared/util/platform_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,7 @@ abstract class TokenRepositoryProtocol {
 
   Future<Token?> fetchToken();
 
-  Future<String?> fetchUserRole(String token);
+  Future<Role?> fetchUserRole(String token);
 }
 
 final tokenRepositoryProvider = Provider(TokenRepository.new);
@@ -88,8 +89,8 @@ class TokenRepository implements TokenRepositoryProtocol {
     return _token;
   }
 
-    Future<String> fetchUserRole(String token) async {
+    Future<Role> fetchUserRole(String token) async {
       // Write code to fetch user role from token
-      return 'user';
+      return Role.patient;
     }
 }

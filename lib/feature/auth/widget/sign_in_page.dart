@@ -94,7 +94,7 @@ class SignInPage extends ConsumerWidget {
                                 ),
                               ),
                               onPressed: () {
-                                ref.read(routerProvider).go(HomeRoute.path);
+                                ref.read(routerProvider).go(MainRoute.path);
                               },
                               child: const Text(
                                 'Masuk',
@@ -183,30 +183,5 @@ class SignInPage extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  Widget _widgetSignInButton(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            // ref
-            //     .read(authNotifierProvider.notifier)
-            //     .login(_emailController.text, _passwordController.text);
-            ref.read(routerProvider).go(HomeRoute.path);
-          },
-          child: Text("sign_in".tr()),
-        ));
-  }
-
-  Widget _widgetSignUpButton(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: () {
-            ref.read(routerProvider).go(SignUpRoute.path);
-          },
-          child: Text("sign_up".tr()),
-        ));
   }
 }

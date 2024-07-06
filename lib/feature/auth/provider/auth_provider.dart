@@ -1,3 +1,4 @@
+import 'package:optiguard/app/widget/main_page.dart';
 import 'package:optiguard/feature/auth/repository/auth_repository.dart';
 import 'package:optiguard/feature/auth/repository/token_repository.dart';
 import 'package:optiguard/feature/auth/state/auth_state.dart';
@@ -29,6 +30,7 @@ class AuthNotifier extends _$AuthNotifier {
       ref.read(tokenRepositoryProvider);
 
   Future<void> logout() async {
+    ref.read(bottomNavNotifier).resetNavigation();
     await _tokenRepository.remove();
     state = const AuthState.loggedOut();
   }

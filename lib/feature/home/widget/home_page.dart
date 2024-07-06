@@ -5,127 +5,17 @@ import 'package:go_router/go_router.dart';
 import 'package:optiguard/feature/home/provider/home_provider.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';
+import 'package:optiguard/shared/widget/app_bar.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
-
-  Icon _timeIcon() {
-    final hour = DateTime.now().hour;
-    if (hour >= 5 && hour < 11) {
-      return const Icon(
-        Icons.wb_sunny,
-        color: Colors.yellow,
-        size: 36,
-      );
-    } else if (hour >= 11 && hour < 15) {
-      return Icon(
-        Icons.wb_sunny,
-        color: Colors.yellow[700],
-        size: 36,
-      );
-    } else if (hour >= 15 && hour < 18) {
-      return Icon(
-        Icons.nightlight_round,
-        color: Colors.orange[700],
-        size: 36,
-      );
-    } else {
-      return Icon(
-        Icons.nightlight_round,
-        color: Colors.blue[700],
-        size: 36,
-      );
-    }
-  }
-
-  String _timeGreeting() {
-    final hour = DateTime.now().hour;
-    if (hour >= 5 && hour < 11) {
-      return 'Selamat pagi,';
-    } else if (hour >= 11 && hour < 15) {
-      return 'Selamat siang,';
-    } else if (hour >= 15 && hour < 18) {
-      return 'Selamat sore,';
-    } else {
-      return 'Selamat malam,';
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        backgroundColor: Colors.white,
-        toolbarHeight: 64,
-        title: Row(
-          children: [
-            _timeIcon(),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(_timeGreeting(), style: const TextStyle(fontSize: 14)),
-                const Text(
-                  'Tiara',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.notifications_rounded),
-            onPressed: () {},
-          ),
-          const SizedBox(width: 8),
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.green, width: 2),
-              shape: BoxShape.circle,
-            ),
-            child: const CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage('assets/avatar_example.png'),
-            ),
-          )
-        ],
-      ),
+      appBar: const MainAppBar(),
       body: _widgetContent(context, ref),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     ref.read(homeNotifierProvider.notifier).loadData();
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_rounded),
-            label: 'Rekam Medis',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Edukasi',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            label: 'Pesan',
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: AppColors.blue,
-        // onTap: _onItemTapped,
-      ),
     );
   }
 
