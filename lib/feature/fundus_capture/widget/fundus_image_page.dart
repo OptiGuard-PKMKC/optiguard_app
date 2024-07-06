@@ -38,7 +38,13 @@ class _FundusImagePageState extends ConsumerState<FundusImagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(
+        titleWidget: Image.asset(
+          'assets/app_logo_xs.png',
+          width: 32,
+        ),
+        centerTitle: true,
+      ),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,

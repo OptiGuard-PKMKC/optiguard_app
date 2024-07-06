@@ -67,6 +67,18 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         toolbarHeight: 64,
+        title: Container(
+          padding: const EdgeInsets.only(right: 6, left: 6, bottom: 6, top: 10),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Image.asset(
+            'assets/app_logo_xs.png',
+            width: 32,
+          ),
+        ),
+        centerTitle: true,
         leading: IconButton(
           icon: Container(
             padding: const EdgeInsets.all(4),

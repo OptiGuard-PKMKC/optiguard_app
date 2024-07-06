@@ -14,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor = Colors.white,
     this.titleTextStyle = const TextStyle(fontSize: 16),
     this.titleSpacing = 0,
+    this.centerTitle = false,
   });
 
   final String title;
@@ -24,6 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color backgroundColor;
   final TextStyle titleTextStyle;
   final double titleSpacing;
+  final bool centerTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         onPressed: onLeadingPressed ?? () => Navigator.of(context).pop(),
       ),
+      centerTitle: centerTitle,
     );
   }
 
@@ -120,14 +123,22 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ],
             )
-          : Text(
-              title,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-            ),
+          : Row(
+            children: [
+              Image.asset('assets/app_logo_xs.png', width: 32,),
+              const SizedBox(width: 12),
+              Text(
+                  title,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
+            ],
+          ),
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.notifications_rounded),
-          onPressed: () {},
+          onPressed: () {
+            context.push(NotificationRoute.path);
+          },
         ),
         const SizedBox(width: 8),
         GestureDetector(
