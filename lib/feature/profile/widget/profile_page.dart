@@ -69,7 +69,7 @@ class ProfilePage extends ConsumerWidget {
                       onPressed: () async {
                         await authNotifier.logout();
                         if (context.mounted) {
-                          GoRouter.of(context).go(AppRoute.path);
+                          GoRouter.of(context).go(SignInRoute.path);
                         }
                       },
                     ),

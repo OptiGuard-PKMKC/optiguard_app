@@ -7,6 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     this.title = '',
+    this.titleWidget,
     this.onLeadingPressed,
     this.leadingIcon = Icons.arrow_back_rounded,
     this.iconColor = Colors.black,
@@ -16,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   final String title;
+  final Widget? titleWidget;
   final VoidCallback? onLeadingPressed;
   final IconData leadingIcon;
   final Color iconColor;
@@ -27,7 +29,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: backgroundColor,
-      title: Text(title, style: titleTextStyle),
+      title: (titleWidget != null)
+          ? titleWidget
+          : Text(title, style: titleTextStyle),
       titleSpacing: titleSpacing,
       leading: IconButton(
         icon: Icon(

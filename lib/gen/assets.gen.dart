@@ -123,6 +123,8 @@ class Assets {
   static const AssetGenImage appLogo = AssetGenImage('assets/app_logo.png');
   static const AssetGenImage appLogoBak =
       AssetGenImage('assets/app_logo_bak.png');
+  static const AssetGenImage avatarDokter =
+      AssetGenImage('assets/avatar_dokter.jpg');
   static const AssetGenImage avatarExample =
       AssetGenImage('assets/avatar_example.png');
   static const AssetGenImage banner01 = AssetGenImage('assets/banner_01.png');
@@ -133,7 +135,7 @@ class Assets {
 
   /// List of all assets
   static List<AssetGenImage> get values =>
-      [appLogo, appLogoBak, avatarExample, banner01, banner02];
+      [appLogo, appLogoBak, avatarDokter, avatarExample, banner01, banner02];
 }
 
 class AssetGenImage {

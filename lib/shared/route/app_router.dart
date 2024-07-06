@@ -9,6 +9,7 @@ import 'package:optiguard/feature/appointment/widget/appointment_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_in_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_up_page.dart';
 import 'package:optiguard/feature/chat/widget/chat_page.dart';
+import 'package:optiguard/feature/chat/widget/chat_room_page.dart';
 import 'package:optiguard/feature/doctor_profile/widget/doctor_profile_page.dart';
 import 'package:optiguard/feature/education/widget/education_page.dart';
 import 'package:optiguard/feature/fundus_capture/widget/fundus_capture_page.dart';
@@ -101,6 +102,17 @@ class ChatRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ChatPage();
+  }
+}
+
+@TypedGoRoute<ChatRoomRoute>(path: ChatRoomRoute.path)
+class ChatRoomRoute extends GoRouteData {
+  const ChatRoomRoute();
+  static const path = '/chatRoom';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ChatRoomPage();
   }
 }
 

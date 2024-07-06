@@ -12,6 +12,7 @@ List<RouteBase> get $appRoutes => [
       $mainDoctorRoute,
       $appointmentRoute,
       $chatRoute,
+      $chatRoomRoute,
       $doctorProfileRoute,
       $educationRoute,
       $fundusCaptureRoute,
@@ -125,6 +126,28 @@ extension $ChatRouteExtension on ChatRoute {
 
   String get location => GoRouteData.$location(
         '/chat',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $chatRoomRoute => GoRouteData.$route(
+      path: '/chatRoom',
+      factory: $ChatRoomRouteExtension._fromState,
+    );
+
+extension $ChatRoomRouteExtension on ChatRoomRoute {
+  static ChatRoomRoute _fromState(GoRouterState state) => const ChatRoomRoute();
+
+  String get location => GoRouteData.$location(
+        '/chatRoom',
       );
 
   void go(BuildContext context) => context.go(location);
