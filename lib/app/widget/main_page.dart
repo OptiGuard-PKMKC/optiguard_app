@@ -117,13 +117,11 @@ class _MainPageState extends ConsumerState<MainPage> {
       ),
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          state.changeIndex(index);
-        },
+        onTap: state.changeIndex,
         currentIndex: state.index,
         backgroundColor: Colors.white,
         selectedItemColor: AppColors.blue,
-        unselectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey[800],
         showUnselectedLabels: true,
         selectedFontSize: 12,
         type: BottomNavigationBarType.fixed,

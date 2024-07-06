@@ -22,31 +22,29 @@ class MedicalRecordPageState extends ConsumerState<MedicalRecordPage> {
         title: 'Rekam Medis',
         route: MedicalRecordRoute.path,
       ),
-      body: Container(
-        child: DefaultTabController(
-          length: 2,
-          child: Column(
-            children: [
-              const Material(
-                color: Colors.white,
-                child: TabBar(
-                  tabs: [
-                    Tab(text: 'Rekam Medis'),
-                    Tab(text: 'Riwayat Fundus'),
-                  ],
-                ),
+      body: DefaultTabController(
+        length: 2,
+        child: Column(
+          children: [
+            const Material(
+              color: Colors.white,
+              child: TabBar(
+                tabs: [
+                  Tab(text: 'Rekam Medis'),
+                  Tab(text: 'Riwayat Fundus'),
+                ],
               ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    _tabMedicalRecord(),
-                    _tabFundusHistory(),
-                  ],
-                ),
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  _tabMedicalRecord(),
+                  _tabFundusHistory(),
+                ],
               ),
-            ],
-          )
-        ),
+            ),
+          ],
+        )
       ),
     );
   }

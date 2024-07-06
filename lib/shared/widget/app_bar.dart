@@ -12,7 +12,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon = Icons.arrow_back_rounded,
     this.iconColor = Colors.black,
     this.backgroundColor = Colors.white,
-    this.titleTextStyle = const TextStyle(fontSize: 16),
+    this.titleTextStyle =
+        const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
     this.titleSpacing = 0,
     this.centerTitle = false,
   });
@@ -30,6 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 0,
       surfaceTintColor: Colors.transparent,
       backgroundColor: backgroundColor,
       title: (titleWidget != null)
@@ -102,6 +104,14 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      elevation: 0,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(4),
+        child: Container(
+          color: Colors.grey.withOpacity(0.2),
+          height: 1,
+        ),
+      ),
       surfaceTintColor: Colors.transparent,
       backgroundColor: Colors.white,
       toolbarHeight: 64,
@@ -124,15 +134,18 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
               ],
             )
           : Row(
-            children: [
-              Image.asset('assets/app_logo_xs.png', width: 32,),
-              const SizedBox(width: 12),
-              Text(
+              children: [
+                Image.asset(
+                  'assets/app_logo_xs.png',
+                  width: 32,
+                ),
+                const SizedBox(width: 12),
+                Text(
                   title,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                 ),
-            ],
-          ),
+              ],
+            ),
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.notifications_rounded),

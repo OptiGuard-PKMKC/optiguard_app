@@ -19,6 +19,7 @@ class AmslerHelpPage extends StatelessWidget {
         titleTextStyle: TextStyle(
           fontSize: 16,
           color: Colors.white,
+          fontWeight: FontWeight.w600,
         ),
       ),
       body: _widgetContent(context),
