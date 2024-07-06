@@ -19,6 +19,7 @@ List<RouteBase> get $appRoutes => [
       $homeRoute,
       $homeDoctorRoute,
       $medicalRecordRoute,
+      $medicalRecordDetailRoute,
       $profileRoute,
       $signInRoute,
       $signUpRoute,
@@ -284,6 +285,29 @@ extension $MedicalRecordRouteExtension on MedicalRecordRoute {
 
   String get location => GoRouteData.$location(
         '/medicalRecord',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $medicalRecordDetailRoute => GoRouteData.$route(
+      path: '/medicalRecordDetail',
+      factory: $MedicalRecordDetailRouteExtension._fromState,
+    );
+
+extension $MedicalRecordDetailRouteExtension on MedicalRecordDetailRoute {
+  static MedicalRecordDetailRoute _fromState(GoRouterState state) =>
+      const MedicalRecordDetailRoute();
+
+  String get location => GoRouteData.$location(
+        '/medicalRecordDetail',
       );
 
   void go(BuildContext context) => context.go(location);

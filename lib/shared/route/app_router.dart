@@ -17,6 +17,7 @@ import 'package:optiguard/feature/fundus_record/widget/fundus_detail_page.dart';
 import 'package:optiguard/feature/home/widget/home_page.dart';
 import 'package:optiguard/feature/home_doctor/widget/home_doctor_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:optiguard/feature/medical_record/widget/medical_record_detail_page.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_page.dart';
 import 'package:optiguard/feature/profile/widget/profile_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -179,6 +180,17 @@ class MedicalRecordRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const MedicalRecordPage();
+  }
+}
+
+@TypedGoRoute<MedicalRecordDetailRoute>(path: MedicalRecordDetailRoute.path)
+class MedicalRecordDetailRoute extends GoRouteData {
+  const MedicalRecordDetailRoute();
+  static const path = '/medicalRecordDetail';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const MedicalRecordDetailPage();
   }
 }
 

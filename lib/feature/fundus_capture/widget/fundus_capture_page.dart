@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:optiguard/feature/fundus_capture/provider/fundus_capture_provider.dart';
-import 'package:optiguard/feature/fundus_capture/widget/fundus_history_list.dart';
+import 'package:optiguard/feature/medical_record/widget/fundus_history_list.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/util/camera.dart';
 
@@ -262,7 +262,7 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                       ),
 
                       // Fundus history list
-                      const FundusHistoryList(),
+                      const SliverToBoxAdapter(child: FundusHistoryList()),
                     ],
                   ),
                 );

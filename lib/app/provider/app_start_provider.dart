@@ -26,6 +26,9 @@ class AppStartNotifier extends _$AppStartNotifier {
 
     ref.onDispose(() {});
 
+    // Delay for 3 seconds to show splash screen
+    await Future.delayed(const Duration(seconds: 2));
+
     final _authState = ref.watch(authNotifierProvider);
 
     if (_authState is AuthStateLoggedIn) {
