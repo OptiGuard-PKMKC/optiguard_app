@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:optiguard/app/app.dart';
 import 'package:optiguard/shared/util/camera.dart';
+import 'package:optiguard/shared/util/db_loader.dart';
 import 'package:optiguard/shared/util/logger.dart';
 import 'package:optiguard/shared/util/platform_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,9 @@ Future<void> start() async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+
+  final dbLoader = DatabaseLoader();
+  await dbLoader.database;
 
   final cameraState = CameraState();
   await cameraState.initializeCamera();

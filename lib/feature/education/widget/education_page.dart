@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:optiguard/feature/auth/widget/text_input.dart';
+import 'package:optiguard/feature/education/model/article.dart';
+import 'package:optiguard/feature/education/provider/articles_provider.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
@@ -16,19 +18,10 @@ class EducationPage extends ConsumerStatefulWidget {
 
 class EducationPageState extends ConsumerState<EducationPage> {
   final _searchController = TextEditingController();
-  List<String> filteredArticles = [];
-
-  final List<String> articleList = [
-    'Jaga Kesehatan Mata di Era Digital',
-    'Pentingnya Melakukan Pemeriksaan Mata secara Berkala',
-    'Kenali Gejala Awal Gangguan Mata',
-    'Manfaat Makanan Sehat untuk Kesehatan Mata Anda',
-    'Pentingnya Pemeriksaan Mata Rutin: Apa yang Harus Anda Ketahui?'
-  ];
+  List<Article> _filteredArticles = [];
 
   @override
   void initState() {
-    filteredArticles = articleList;
     super.initState();
   }
 
@@ -83,6 +76,8 @@ class EducationPageState extends ConsumerState<EducationPage> {
   }
 
   Widget _tabArticle() {
+    final articleState = ref.watch(articleNotifierProvider);
+
     return SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 16),
         physics: const AlwaysScrollableScrollPhysics(),
@@ -94,10 +89,13 @@ class EducationPageState extends ConsumerState<EducationPage> {
                 controller: _searchController,
                 onChanged: (value) {
                   setState(() {
-                    filteredArticles = articleList
-                        .where((article) =>
-                            article.toLowerCase().contains(value.toLowerCase()))
-                        .toList();
+                    _filteredArticles = articleState.maybeWhen(
+                        loaded: (articles) => articles
+                            .where((article) => article.title
+                                .toLowerCase()
+                                .contains(value.toLowerCase()))
+                            .toList(),
+                        orElse: () => []);
                   });
                 },
                 decoration: InputDecoration(
@@ -117,16 +115,31 @@ class EducationPageState extends ConsumerState<EducationPage> {
               ),
             ),
             const SizedBox(height: 12),
-            Column(
-              children: List.generate(filteredArticles.length, (index) {
-                return ArticleItemWidget(
-                  title: filteredArticles[index],
-                  date: DateTime.now()
-                      .subtract(Duration(days: Random().nextInt(12))),
-                  view: Random().nextInt(900) + 100,
+            articleState.when(
+              loading: () => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              error: (error) => Center(
+                child: Text(
+                  error,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              ),
+              loaded: (articles) {
+                final List<Article> articlesToDisplay =
+                    _filteredArticles.isNotEmpty ? _filteredArticles : articles;
+                return Column(
+                  children: List.generate(articlesToDisplay.length, (index) {
+                    final article = articlesToDisplay[index];
+                    return ArticleItemWidget(
+                      title: article.title,
+                      date: article.date,
+                      view: article.view,
+                    );
+                  }),
                 );
-              }),
-            )
+              },
+            ),
           ],
         ));
   }

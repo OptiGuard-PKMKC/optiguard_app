@@ -14,7 +14,7 @@ class ChatNotifier extends _$ChatNotifier {
     final List<ChatItem> chatList = [
       ChatItem(
           chatId: '1hakdhad',
-          name: 'dr. Grimaldi Ihsam, Sp.M',
+          name: 'dr. Grimaldi Ihsan, Sp.M',
           message:
               'Mata Anda terlihat sehat, tetap jaga kesehatan mata Anda dengan mengonsumsi makanan yang bergizi dan hindari paparan sinar UV',
           time: '10:00',

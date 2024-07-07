@@ -1,11 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:optiguard/feature/fundus_capture/state/fundus_capture_state.dart';
 import 'package:optiguard/feature/fundus_capture/widget/fundus_image_page.dart';
-import 'package:optiguard/shared/route/app_router.dart';
 import 'package:optiguard/shared/util/db_loader.dart';
-import 'package:path/path.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'fundus_capture_provider.g.dart';
