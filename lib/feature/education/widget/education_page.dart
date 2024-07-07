@@ -1,10 +1,11 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:optiguard/feature/auth/widget/text_input.dart';
 import 'package:optiguard/feature/education/model/article.dart';
 import 'package:optiguard/feature/education/provider/articles_provider.dart';
+import 'package:optiguard/feature/education/widget/article_detail_page.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
@@ -132,9 +133,11 @@ class EducationPageState extends ConsumerState<EducationPage> {
                   children: List.generate(articlesToDisplay.length, (index) {
                     final article = articlesToDisplay[index];
                     return ArticleItemWidget(
+                      id: article.id,
                       title: article.title,
                       date: article.date,
                       view: article.view,
+                      image: article.image,
                     );
                   }),
                 );
@@ -148,12 +151,14 @@ class EducationPageState extends ConsumerState<EducationPage> {
 class ArticleItemWidget extends StatelessWidget {
   const ArticleItemWidget({
     super.key,
+    required this.id,
     required this.title,
     required this.date,
     required this.view,
-    this.image = 'assets/images/amsler_help.png',
+    required this.image,
   });
 
+  final String id;
   final String title;
   final DateTime date;
   final int view;
@@ -177,19 +182,26 @@ class ArticleItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        log('Article ID: $id');
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return ArticleDetailPage(
+            articleId: id,
+          );
+        }));
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         child: Row(
           children: [
-            Container(
-              width: 84,
-              height: 84,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                image,
+                width: 84,
+                height: 84,
+                fit: BoxFit.cover,
               ),
-              child: Image.asset(image, fit: BoxFit.cover),
             ),
             const SizedBox(width: 16),
             Expanded(

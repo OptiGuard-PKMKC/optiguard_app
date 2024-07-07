@@ -22,5 +22,22 @@ final articleNotifierProvider =
 );
 
 typedef _$ArticleNotifier = AutoDisposeNotifier<ArticlesState>;
+String _$articleDetailNotifierHash() =>
+    r'a2add561d67713988d9e539c5b5ef67a6aca3d3e';
+
+/// See also [ArticleDetailNotifier].
+@ProviderFor(ArticleDetailNotifier)
+final articleDetailNotifierProvider = AutoDisposeNotifierProvider<
+    ArticleDetailNotifier, ArticleDetailState>.internal(
+  ArticleDetailNotifier.new,
+  name: r'articleDetailNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$articleDetailNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ArticleDetailNotifier = AutoDisposeNotifier<ArticleDetailState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
