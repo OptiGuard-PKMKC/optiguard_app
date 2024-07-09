@@ -22,6 +22,7 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
   late CameraController _cameraController;
   late Future<void> _initializeControllerFuture;
   final int _cameraIndex = 0;
+  FlashMode flashMode = FlashMode.off;
 
   ValueNotifier<double> dragSizeNotifier = ValueNotifier<double>(0.2);
   double draggableSize = _kDraggableSize;
@@ -36,6 +37,16 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
       setState(() {
         shutterScale = 1.0;
       });
+    });
+  }
+
+  void _changeFlashMode() {
+    setState(() {
+      if (flashMode == FlashMode.off) {
+        flashMode = FlashMode.torch;
+      } else {
+        flashMode = FlashMode.off;
+      }
     });
   }
 
@@ -93,22 +104,53 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
           },
         ),
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            alignment: Alignment.center,
-            height: 32,
-            width: 32,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: IconButton(
-              icon: const Icon(
-                Icons.question_mark_rounded,
-                size: 16,
+          Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                alignment: Alignment.center,
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(
+                  color: flashMode == FlashMode.torch
+                      ? AppColors.blue
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.flash_on_rounded,
+                    size: 18,
+                    color: flashMode == FlashMode.torch
+                        ? Colors.white
+                        : Colors.black,
+                  ),
+                  onPressed: () {
+                    _changeFlashMode();
+                    ref
+                        .read(fundusCaptureNotifierProvider.notifier)
+                        .flashTorch(context, _cameraController, flashMode);
+                  },
+                ),
               ),
-              onPressed: () {},
-            ),
+              Container(
+                margin: const EdgeInsets.only(right: 16),
+                alignment: Alignment.center,
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.question_mark_rounded,
+                    size: 16,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -197,21 +239,16 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                                   onTap: () {
                                     _changeShutterScale();
 
-                                    // Show snackbar
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   const SnackBar(
-                                    //     content: Text('Take picture'),
-                                    //     backgroundColor: Colors.redAccent,
-                                    //     behavior: SnackBarBehavior.floating,
-                                    //   ),
-                                    // );
-
                                     // Take picture
                                     ref
                                         .read(fundusCaptureNotifierProvider
                                             .notifier)
                                         .captureImage(
                                             context, cameraController);
+
+                                    setState(() {
+                                      flashMode = FlashMode.off;
+                                    });
                                   },
                                   child: AnimatedScale(
                                     scale: shutterScale,

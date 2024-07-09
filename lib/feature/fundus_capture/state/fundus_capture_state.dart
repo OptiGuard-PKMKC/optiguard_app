@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'fundus_capture_state.freezed.dart';

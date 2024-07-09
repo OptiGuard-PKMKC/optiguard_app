@@ -26,6 +26,23 @@ class FundusCaptureNotifier extends _$FundusCaptureNotifier {
     }
   }
 
+  Future<void> flashTorch(
+      BuildContext context, CameraController cameraController, FlashMode flashMode) async {
+    try {
+      if (!cameraController.value.isInitialized) {
+        throw Exception('Camera is not initialized');
+      }
+
+      if (cameraController.value.flashMode != flashMode) {
+        await cameraController.setFlashMode(flashMode);
+      } else {
+        await cameraController.setFlashMode(flashMode);
+      }
+    } catch (e) {
+      state = const FundusCaptureState.error('Failed to capture image');
+    }
+  }
+
   Future<void> captureImage(
       BuildContext context, CameraController cameraController) async {
     try {
@@ -37,9 +54,8 @@ class FundusCaptureNotifier extends _$FundusCaptureNotifier {
         throw Exception('Camera is already taking picture');
       }
 
-      await cameraController.setFlashMode(FlashMode.off);
-
       final XFile file = await cameraController.takePicture();
+      await cameraController.setFlashMode(FlashMode.off);
       final imagePath = file.path;
 
       DatabaseLoader dbLoader = DatabaseLoader();
