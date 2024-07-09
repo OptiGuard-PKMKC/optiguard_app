@@ -44,9 +44,28 @@ class $AssetsImagesGen {
   AssetGenImage get amslerSuccess =>
       const AssetGenImage('assets/images/amsler_success.png');
 
+  /// File path: assets/images/fundus_example.png
+  AssetGenImage get fundusExample =>
+      const AssetGenImage('assets/images/fundus_example.png');
+
+  /// File path: assets/images/med_record_example.png
+  AssetGenImage get medRecordExample =>
+      const AssetGenImage('assets/images/med_record_example.png');
+
+  /// File path: assets/images/person_example.png
+  AssetGenImage get personExample =>
+      const AssetGenImage('assets/images/person_example.png');
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [amslerFailed, amslerGrid, amslerHelp, amslerSuccess];
+  List<AssetGenImage> get values => [
+        amslerFailed,
+        amslerGrid,
+        amslerHelp,
+        amslerSuccess,
+        fundusExample,
+        medRecordExample,
+        personExample
+      ];
 }
 
 class $AssetsLangGen {

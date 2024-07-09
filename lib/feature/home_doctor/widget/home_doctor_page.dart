@@ -5,6 +5,7 @@ import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:optiguard/shared/widget/app_bar.dart';
 
 class HomeDoctorPage extends ConsumerWidget {
   const HomeDoctorPage({super.key});
@@ -12,47 +13,12 @@ class HomeDoctorPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          toolbarHeight: 64,
-          title: Row(
-            children: [
-              Icon(
-                Icons.sunny,
-                color: Colors.yellow[700],
-                size: 36,
-              ),
-              const SizedBox(width: 10),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Selamat pagi,', style: TextStyle(fontSize: 14)),
-                  Text(
-                    'dr. Rudi',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.adjust),
-              onPressed: () {
-                ref.read(routerProvider).go(SignInRoute.path);
-                //ref.read(authNotifierProvider.notifier).logout();
-              },
-            ),
-          ],
-        ),
-        body: _widgetContent(context, ref),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            ref.read(homeNotifierProvider.notifier).loadData();
-          },
-          child: const Icon(Icons.add),
-        ));
+      backgroundColor: AppColors.background,
+      appBar: MainAppBar(
+        userName: 'dokter',
+      ),
+      body: _widgetContent(context, ref),
+    );
   }
 
   Widget _widgetLoading(BuildContext context, WidgetRef ref) {
@@ -88,10 +54,10 @@ class HomeDoctorPage extends ConsumerWidget {
         physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
-            _bodyBanner(context, ref),
+            // _bodyBanner(context, ref),
             _bodyMainFeatures(context, ref),
             _bodyAppointment(context, ref),
-            Text(data),
+            // Text(data),
           ],
         ),
       ),
@@ -137,14 +103,17 @@ class HomeDoctorPage extends ConsumerWidget {
     ) {
       return Expanded(
         child: InkWell(
+          splashColor: Colors.grey.withOpacity(0.1),
+          highlightColor: Colors.grey.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(12),
           onTap: () {
             if (route != null) {
               ctx.push(route);
             }
           },
-          child: Container(
+          child: Ink(
             padding: const EdgeInsets.all(16),
-            height: 200,
+            height: 180,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
@@ -168,12 +137,17 @@ class HomeDoctorPage extends ConsumerWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                      fontSize: 16, fontWeight: FontWeight.w700, height: 1.2),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   subTitle,
-                  style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[700],
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
                 ),
               ],
             ),
@@ -197,75 +171,13 @@ class HomeDoctorPage extends ConsumerWidget {
               ),
               const SizedBox(width: 16),
               cardRow(
-                'Akses Alat di Faskes',
-                'Pakai alat yang tersedia di mitra kami',
+                'Pasien Saya',
+                '2 pasien',
                 Icons.device_hub,
                 AppColors.green,
-                null,
+                PatientRoute.path,
               ),
             ],
-          ),
-          const SizedBox(height: 32),
-          InkWell(
-            onTap: () {
-              ctx.push(AppointmentRoute.path);
-            },
-            splashColor: Colors.teal.withOpacity(0.3),
-            highlightColor: Colors.teal.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(12),
-            child: Ink(
-              padding: const EdgeInsets.all(16),
-              width: double.infinity,
-              height: 96,
-              decoration: BoxDecoration(
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: const Icon(
-                            Icons.medical_services,
-                            size: 32,
-                            color: AppColors.green,
-                          )),
-                      const SizedBox(width: 16),
-                      const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Jadwal Dokter',
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Lihat jadwal dokter dan buat janji',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Icon(
-                    Icons.arrow_forward_rounded,
-                    size: 32,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
           ),
         ],
       ),
@@ -325,7 +237,7 @@ class HomeDoctorPage extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'dr. Rudi',
+                                    'Tiara Sabrina',
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
@@ -341,7 +253,7 @@ class HomeDoctorPage extends ConsumerWidget {
                                         size: 20,
                                       ),
                                       const SizedBox(width: 4),
-                                      Text('Senin, 12 Juli 2021'),
+                                      Text('Senin, 12 Agustus 2024'),
                                     ],
                                   )
                                 ],

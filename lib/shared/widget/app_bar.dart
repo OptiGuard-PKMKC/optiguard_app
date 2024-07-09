@@ -54,10 +54,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MainAppBar({super.key, this.route = HomeRoute.path, this.title = ''});
+  const MainAppBar(
+      {super.key,
+      this.route = HomeRoute.path,
+      this.title = '',
+      this.userName = 'Tiara',
+      this.image = 'assets/images/person_example.png'});
 
   final String route;
   final String title;
+  final String userName;
+  final String image;
 
   Icon _timeIcon() {
     final hour = DateTime.now().hour;
@@ -124,10 +131,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(_timeGreeting(), style: const TextStyle(fontSize: 14)),
-                    const Text(
-                      'Tiara',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    Text(
+                      userName,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -164,9 +171,9 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
               border: Border.all(color: AppColors.green, width: 2),
               shape: BoxShape.circle,
             ),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               radius: 20,
-              backgroundImage: AssetImage('assets/avatar_example.png'),
+              backgroundImage: AssetImage(image),
             ),
           ),
         )

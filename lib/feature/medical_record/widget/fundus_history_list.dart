@@ -19,7 +19,7 @@ class FundusHistoryListState extends ConsumerState<FundusHistoryList> {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          for (int index = 0; index < 5; index++)
+          for (int index = 0; index < 2; index++)
             Column(
               children: [
                 Material(
@@ -38,21 +38,26 @@ class FundusHistoryListState extends ConsumerState<FundusHistoryList> {
                         children: [
                           Row(
                             children: [
-                              Container(
+                              SizedBox(
                                 width: 80,
                                 height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
+                                  child: Image.asset(
+                                    'assets/images/fundus_example.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 16),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   const Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'KONDISI',
@@ -81,7 +86,7 @@ class FundusHistoryListState extends ConsumerState<FundusHistoryList> {
                               ),
                             ],
                           ),
-                
+
                           // Option icon
                           IconButton(
                             icon: Container(
@@ -114,7 +119,7 @@ class FundusHistoryListState extends ConsumerState<FundusHistoryList> {
                                 ),
                                 // Add more options as needed
                               ];
-                
+
                               // Show the bottom sheet
                               buildBottomSheetOption(context, options);
                             },

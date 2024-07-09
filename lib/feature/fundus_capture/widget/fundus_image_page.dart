@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/util/snackbar.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
 
 class FundusImagePage extends ConsumerStatefulWidget {
@@ -111,9 +112,7 @@ class _FundusImagePageState extends ConsumerState<FundusImagePage> {
                         ),
                         onPressed: () {
                           // Implement your submit logic here
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Prediksi sedang diproses')),
-                          );
+                          showTopSnackBar(context, 'Prediksi sedang diproses');
                         },
                         child: Text(
                           'Prediksi',

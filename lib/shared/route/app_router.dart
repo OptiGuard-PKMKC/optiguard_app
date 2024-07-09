@@ -25,6 +25,7 @@ import 'package:go_router/go_router.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_detail_page.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_page.dart';
 import 'package:optiguard/feature/notification/widget/notification_page.dart';
+import 'package:optiguard/feature/patient/widget/patient_page.dart';
 import 'package:optiguard/feature/profile/widget/profile_page.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -263,6 +264,17 @@ class NotificationRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const NotificationPage();
+  }
+}
+
+@TypedGoRoute<PatientRoute>(path: PatientRoute.path)
+class PatientRoute extends GoRouteData {
+  const PatientRoute();
+  static const path = '/patient';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const PatientPage();
   }
 }
 

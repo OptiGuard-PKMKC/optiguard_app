@@ -38,12 +38,15 @@ class MedicalRecordListState extends ConsumerState<MedicalRecordList> {
                         children: [
                           Row(
                             children: [
-                              Container(
+                              SizedBox(
                                 width: 80,
                                 height: 80,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12),
+                                  child: Image.asset(
+                                    'assets/images/med_record_example.png',
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 16),

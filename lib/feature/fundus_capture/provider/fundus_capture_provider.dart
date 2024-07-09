@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:optiguard/feature/fundus_capture/state/fundus_capture_state.dart';
 import 'package:optiguard/feature/fundus_capture/widget/fundus_image_page.dart';
 import 'package:optiguard/shared/util/db_loader.dart';
+import 'package:optiguard/shared/util/snackbar.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'fundus_capture_provider.g.dart';
@@ -45,9 +46,7 @@ class FundusCaptureNotifier extends _$FundusCaptureNotifier {
       await dbLoader.insertImage(1, imagePath);
 
       // Notify user that image has been captured
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Image captured and saved!')),
-      );
+      showTopSnackBar(context, 'Gambar fundus berhasil diambil!');
 
       // Navigate using material page route
       Navigator.push(context, MaterialPageRoute(builder: (context) {

@@ -7,7 +7,7 @@ part of 'fundus_capture_provider.dart';
 // **************************************************************************
 
 String _$fundusCaptureNotifierHash() =>
-    r'eda51ab2f3df199ec2fccddaf8f5f4817062e4ea';
+    r'ee087491e1a41f03676fc2b4cf33f7e29080a4bb';
 
 /// See also [FundusCaptureNotifier].
 @ProviderFor(FundusCaptureNotifier)

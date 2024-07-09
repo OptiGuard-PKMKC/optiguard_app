@@ -6,7 +6,9 @@ import 'package:optiguard/feature/auth/state/auth_state.dart';
 import 'package:optiguard/feature/chat/widget/chat_page.dart';
 import 'package:optiguard/feature/education/widget/education_page.dart';
 import 'package:optiguard/feature/home/widget/home_page.dart';
+import 'package:optiguard/feature/home_doctor/widget/home_doctor_page.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_page.dart';
+import 'package:optiguard/feature/patient/widget/patient_page.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -68,9 +70,9 @@ class AppStartNotifier extends _$AppStartNotifier {
   MenuPages loadMenuDoctor() {
     return MenuPages(
       pages: const [
-        Text('Beranda'),
+        HomeDoctorPage(),
         Text('Jadwal'),
-        Text('Pasien Saya'),
+        PatientPage(),
         ChatPage(),
       ],
       bottomNavs: [

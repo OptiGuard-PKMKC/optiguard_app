@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -94,7 +96,9 @@ class SignInPage extends ConsumerWidget {
                                 ),
                               ),
                               onPressed: () {
-                                ref.read(routerProvider).go(MainPatientRoute.path);
+                                ref
+                                    .read(routerProvider)
+                                    .go(MainPatientRoute.path);
                               },
                               child: const Text(
                                 'Masuk',
@@ -161,7 +165,10 @@ class SignInPage extends ConsumerWidget {
                             const SizedBox(width: 5),
                             GestureDetector(
                               onTap: () {
-                                // Navigator.pushNamed(context, '/register');
+                                log('Daftar');
+                                   ref
+                                    .read(routerProvider)
+                                    .go(MainDoctorRoute.path);
                               },
                               child: const Text(
                                 'Daftar',

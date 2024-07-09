@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:optiguard/feature/medical_record/widget/fundus_history_list.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_list.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
-import 'package:optiguard/shared/route/app_router.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
 
-class MedicalRecordPage extends ConsumerStatefulWidget {
-  const MedicalRecordPage({super.key});
+class PatientDetailPage extends StatefulWidget {
+  const PatientDetailPage({required this.patientId, super.key});
+
+  final String patientId;
 
   @override
-  MedicalRecordPageState createState() => MedicalRecordPageState();
+  State<PatientDetailPage> createState() => _PatientDetailPageState();
 }
 
-class MedicalRecordPageState extends ConsumerState<MedicalRecordPage> {
+class _PatientDetailPageState extends State<PatientDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: const MainAppBar(
-        title: 'Rekam Medis',
-        route: MedicalRecordRoute.path,
-      ),
-      body: DefaultTabController(
+        backgroundColor: Colors.white,
+        appBar: CustomAppBar(
+          title: 'Tiara Sabrina',
+        ),
+        body: _widgetContent(context),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Add your custom logic here
+          },
+          child: const Icon(Icons.add),
+        ));
+  }
+
+  Widget _widgetContent(BuildContext context) {
+    return DefaultTabController(
         length: 2,
         child: Column(
           children: [
@@ -44,9 +53,7 @@ class MedicalRecordPageState extends ConsumerState<MedicalRecordPage> {
               ),
             ),
           ],
-        )
-      ),
-    );
+        ));
   }
 
   Widget _tabMedicalRecord() {

@@ -35,12 +35,15 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
             // Image fundus
             Column(
               children: [
-                Container(
+                SizedBox(
                   width: 200,
                   height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      'assets/images/fundus_example.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
