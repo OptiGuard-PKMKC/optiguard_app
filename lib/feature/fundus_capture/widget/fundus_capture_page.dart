@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:optiguard/feature/fundus_capture/provider/fundus_capture_provider.dart';
 import 'package:optiguard/feature/medical_record/widget/fundus_history_list.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
@@ -23,6 +26,8 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
   late Future<void> _initializeControllerFuture;
   final int _cameraIndex = 0;
   FlashMode flashMode = FlashMode.off;
+
+  XFile? _pickedImage;
 
   ValueNotifier<double> dragSizeNotifier = ValueNotifier<double>(0.2);
   double draggableSize = _kDraggableSize;
@@ -58,7 +63,7 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
 
     _cameraController = CameraController(
       cameras[_cameraIndex],
-      ResolutionPreset.ultraHigh,
+      ResolutionPreset.high,
     );
 
     _initializeControllerFuture = _cameraController.initialize();
@@ -165,6 +170,17 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
     );
   }
 
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _pickedImage = pickedFile;
+      });
+    }
+  }
+
   Widget _widgetContent(
       BuildContext context,
       WidgetRef ref,
@@ -235,37 +251,62 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                                 margin: const EdgeInsets.only(
                                     right: 16, left: 16, top: 10, bottom: 16),
                                 alignment: Alignment.center,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _changeShutterScale();
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.image_rounded,
+                                        size: 40,
+                                        color: Colors.black87,
+                                      ),
+                                      onPressed: () async {
+                                        await _pickImage();
+                                      },
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        _changeShutterScale();
 
-                                    // Take picture
-                                    ref
-                                        .read(fundusCaptureNotifierProvider
-                                            .notifier)
-                                        .captureImage(
-                                            context, cameraController);
+                                        // Take picture
+                                        ref
+                                            .read(fundusCaptureNotifierProvider
+                                                .notifier)
+                                            .captureImage(
+                                                context, cameraController);
 
-                                    setState(() {
-                                      flashMode = FlashMode.off;
-                                    });
-                                  },
-                                  child: AnimatedScale(
-                                    scale: shutterScale,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      width: 64,
-                                      height: 64,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppColors.blue,
-                                        border: Border.all(
-                                          color: Colors.blue[100]!,
-                                          width: 6,
+                                        setState(() {
+                                          flashMode = FlashMode.off;
+                                        });
+                                      },
+                                      child: AnimatedScale(
+                                        scale: shutterScale,
+                                        duration:
+                                            const Duration(milliseconds: 100),
+                                        child: Container(
+                                          width: 64,
+                                          height: 64,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.blue,
+                                            border: Border.all(
+                                              color: Colors.blue[100]!,
+                                              width: 6,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.circle,
+                                        size: 40,
+                                        color: Colors.transparent,
+                                      ),
+                                      onPressed: () {},
+                                    ),
+                                  ],
                                 ),
                               ),
                               Divider(

@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -11,11 +15,13 @@ import 'package:optiguard/shared/http/api_response.dart';
 import 'package:optiguard/shared/http/app_exception.dart';
 import 'package:optiguard/shared/http/interceptor/dio_connectivity_request_retrier.dart';
 import 'package:optiguard/shared/http/interceptor/retry_interceptor.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 //part 'api_provider.g.dart';
 
-enum ContentType { urlEncoded, json }
+enum ContentType { urlEncoded, json, multipart }
 
 // @riverpod
 // ApiProvider apiProvider(ApiProviderRef ref) {
@@ -27,9 +33,9 @@ final apiProvider = Provider<ApiProvider>(ApiProvider.new);
 class ApiProvider {
   ApiProvider(this._ref) {
     _dio = Dio();
-    _dio.options.sendTimeout = const Duration(seconds: 5);
-    _dio.options.connectTimeout = const Duration(seconds: 5);
-    _dio.options.receiveTimeout = const Duration(seconds: 5);
+    _dio.options.sendTimeout = const Duration(seconds: 30);
+    _dio.options.connectTimeout = const Duration(seconds: 10);
+    _dio.options.receiveTimeout = const Duration(seconds: 60);
     _dio.interceptors.add(
       RetryOnConnectionChangeInterceptor(
         requestRetrier: DioConnectivityRequestRetrier(
@@ -56,6 +62,77 @@ class ApiProvider {
       _ref.read(tokenRepositoryProvider);
 
   late String _baseUrl;
+
+  Future<APIResponse> upload(
+    String path,
+    File imageFile, {
+    String? newBaseUrl,
+    String? token,
+  }) async {
+    try {
+      // Check for connectivity
+      final connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        return const APIResponse.error(AppException.connectivity());
+      }
+
+      String url;
+      if (newBaseUrl != null) {
+        url = newBaseUrl + path;
+      } else {
+        url = this._baseUrl + path;
+      }
+      // Prepare form data
+      final formData = FormData.fromMap({
+        'fundus_image': await MultipartFile.fromFile(imageFile.path,
+            filename: basename(imageFile.path)),
+      });
+
+      // Prepare headers
+      final headers = {
+        'accept': '*/*',
+        'Content-Type': 'multipart/form-data',
+      };
+      final token = await _tokenRepository.fetchToken();
+      log("token ${token?.token}");
+      log(url);
+
+      if (token != null) {
+        headers['Authorization'] = 'Bearer ${token.token}';
+      }
+
+      // Send the request
+      final response = await _dio.post(
+        url,
+        data: formData,
+        options: Options(validateStatus: (status) => true, headers: headers),
+      );
+
+      if (response.statusCode == null) {
+        return const APIResponse.error(AppException.connectivity());
+      }
+
+      if (response.statusCode! < 300) {
+        return APIResponse.success(response.data['data']);
+      } else {
+        return APIResponse.error(AppException.errorWithMessage(
+            'Failed to upload. Status code: ${response.statusCode}'));
+      }
+    } on DioError catch (e) {
+      if (e.error is SocketException) {
+        return const APIResponse.error(AppException.connectivity());
+      }
+      if (e.type == DioErrorType.connectionTimeout ||
+          e.type == DioErrorType.receiveTimeout ||
+          e.type == DioErrorType.sendTimeout) {
+        return const APIResponse.error(AppException.connectivity());
+      }
+      return APIResponse.error(AppException.errorWithMessage(e.message ?? ''));
+    } catch (e) {
+      return APIResponse.error(
+          AppException.errorWithMessage('Error occurred: $e'));
+    }
+  }
 
   Future<APIResponse> post(
     String path,
@@ -121,9 +198,9 @@ class ApiProvider {
         } else if (response.statusCode! == 502) {
           return const APIResponse.error(AppException.error());
         } else {
-          if (response.data['message'] != null) {
+          if (response.data['error'] != null) {
             return APIResponse.error(AppException.errorWithMessage(
-                response.data['message'] as String ?? ''));
+                response.data['error'] as String ?? ''));
           } else {
             return const APIResponse.error(AppException.error());
           }

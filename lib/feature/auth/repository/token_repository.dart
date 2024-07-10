@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:optiguard/feature/auth/model/token.dart';
@@ -48,6 +50,9 @@ class TokenRepository implements TokenRepositoryProtocol {
   Future<void> saveToken(Token token) async {
     final prefs = await SharedPreferences.getInstance();
     _token = token;
+
+    log(token.toString());
+
     if (_platform == PlatformType.iOS ||
         _platform == PlatformType.android ||
         _platform == PlatformType.linux) {
@@ -89,8 +94,8 @@ class TokenRepository implements TokenRepositoryProtocol {
     return _token;
   }
 
-    Future<Role> fetchUserRole(String token) async {
-      // Write code to fetch user role from token
-      return Role.patient;
-    }
+  Future<Role> fetchUserRole(String token) async {
+    // Write code to fetch user role from token
+    return Role.patient;
+  }
 }

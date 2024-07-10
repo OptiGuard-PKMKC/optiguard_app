@@ -62,7 +62,7 @@ class FundusCaptureNotifier extends _$FundusCaptureNotifier {
       await dbLoader.insertImage(1, imagePath);
 
       // Notify user that image has been captured
-      showTopSnackBar(context, 'Gambar fundus berhasil diambil!');
+      showTopSnackBar(context, 'Gambar fundus berhasil diambil!', null);
 
       // Navigate using material page route
       Navigator.push(context, MaterialPageRoute(builder: (context) {

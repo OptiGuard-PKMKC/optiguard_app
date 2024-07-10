@@ -19,7 +19,7 @@ class MedicalRecordPageState extends ConsumerState<MedicalRecordPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: const MainAppBar(
-        title: 'Rekam Medis',
+        title: 'Riwayat',
         route: MedicalRecordRoute.path,
       ),
       body: DefaultTabController(
@@ -31,7 +31,7 @@ class MedicalRecordPageState extends ConsumerState<MedicalRecordPage> {
               child: TabBar(
                 tabs: [
                   Tab(text: 'Riwayat Fundus'),
-                  Tab(text: 'Rekam Medis'),
+                  Tab(text: 'Riwayat Kunjungan'),
                 ],
               ),
             ),

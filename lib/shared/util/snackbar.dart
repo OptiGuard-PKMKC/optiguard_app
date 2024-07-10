@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 
-void showTopSnackBar(BuildContext context, String message) {
+void showTopSnackBar(BuildContext context, String message, Color? bgColor) {
+  Color backgroundColor;
+  if (bgColor == null) {
+    backgroundColor = AppColors.blue;
+  } else {
+    backgroundColor = bgColor;
+  }
+
   final overlay = Overlay.of(context);
   final overlayEntry = OverlayEntry(
     builder: (context) => Positioned(
@@ -14,7 +21,7 @@ void showTopSnackBar(BuildContext context, String message) {
           padding: EdgeInsets.all(8),
           margin: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            color: AppColors.blue,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(24),
           ),
           child: Row(

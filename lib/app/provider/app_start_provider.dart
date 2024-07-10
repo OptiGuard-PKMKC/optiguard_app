@@ -9,6 +9,7 @@ import 'package:optiguard/feature/home/widget/home_page.dart';
 import 'package:optiguard/feature/home_doctor/widget/home_doctor_page.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_page.dart';
 import 'package:optiguard/feature/patient/widget/patient_page.dart';
+import 'package:optiguard/feature/schedule/widget/schedule_page.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -71,7 +72,7 @@ class AppStartNotifier extends _$AppStartNotifier {
     return MenuPages(
       pages: const [
         HomeDoctorPage(),
-        Text('Jadwal'),
+        SchedulePage(),
         PatientPage(),
         ChatPage(),
       ],

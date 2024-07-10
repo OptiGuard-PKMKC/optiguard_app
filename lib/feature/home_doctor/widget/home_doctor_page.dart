@@ -6,6 +6,7 @@ import 'package:optiguard/shared/route/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
+import 'package:optiguard/shared/widget/card_feature.dart';
 
 class HomeDoctorPage extends ConsumerWidget {
   const HomeDoctorPage({super.key});
@@ -94,89 +95,26 @@ class HomeDoctorPage extends ConsumerWidget {
   }
 
   Widget _bodyMainFeatures(BuildContext ctx, WidgetRef ref) {
-    Widget cardRow(
-      String title,
-      String subTitle,
-      IconData icon,
-      Color bgIconColor,
-      String? route,
-    ) {
-      return Expanded(
-        child: InkWell(
-          splashColor: Colors.grey.withOpacity(0.1),
-          highlightColor: Colors.grey.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(12),
-          onTap: () {
-            if (route != null) {
-              ctx.push(route);
-            }
-          },
-          child: Ink(
-            padding: const EdgeInsets.all(16),
-            height: 180,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: bgIconColor,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Icon(
-                    icon,
-                    size: 32,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w700, height: 1.2),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  subTitle,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[700],
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
     return Container(
       margin: const EdgeInsets.all(16),
-      child: Column(
+      child: const Column(
         children: [
           Row(
             children: [
-              cardRow(
-                'Foto Fundus',
-                'Ambil foto fundus untuk melihat kesehatan mata',
-                Icons.camera_alt,
-                AppColors.blue,
-                FundusCaptureRoute.path,
+              CardFeature(
+                title: 'Foto Fundus',
+                icon: Icons.camera_alt,
+                route: FundusCaptureRoute.path,
+                subTitle: 'Ambil foto fundus untuk melihat kesehatan mata',
               ),
-              const SizedBox(width: 16),
-              cardRow(
-                'Pasien Saya',
-                '2 pasien',
-                Icons.device_hub,
-                AppColors.green,
-                PatientRoute.path,
-              ),
+              SizedBox(width: 16),
+              CardFeature(
+                title: 'Pasien Saya',
+                icon: Icons.device_hub,
+                route: PatientRoute.path,
+                bgIconColor: AppColors.green,
+                subTitle: '2 pasien',
+              )
             ],
           ),
         ],

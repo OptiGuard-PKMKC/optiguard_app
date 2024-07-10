@@ -1,10 +1,15 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:optiguard/feature/fundus_record/widget/fundus_detail_page.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/http/api_provider.dart';
 import 'package:optiguard/shared/util/snackbar.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
+
+final loadingProvider = StateProvider<bool>((ref) => false);
 
 class FundusImagePage extends ConsumerStatefulWidget {
   const FundusImagePage({
@@ -37,6 +42,8 @@ class _FundusImagePageState extends ConsumerState<FundusImagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoadingDetection = ref.watch(loadingProvider);
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: CustomAppBar(
@@ -75,7 +82,8 @@ class _FundusImagePageState extends ConsumerState<FundusImagePage> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
-                padding: const EdgeInsets.all(16.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 child: Row(
                   children: [
                     Expanded(
@@ -110,14 +118,61 @@ class _FundusImagePageState extends ConsumerState<FundusImagePage> {
                           ),
                           backgroundColor: AppColors.green,
                         ),
-                        onPressed: () {
-                          // Implement your submit logic here
-                          showTopSnackBar(context, 'Prediksi sedang diproses');
-                        },
-                        child: Text(
-                          'Prediksi',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        onPressed: isLoadingDetection
+                            ? null
+                            : () async {
+                                // Implement your submit logic here
+                                ref.read(loadingProvider.notifier).state = true;
+
+                                showTopSnackBar(
+                                    context, 'Deteksi sedang diproses', null);
+
+                                // Call detection API
+                                File image = File(widget.imagePath);
+
+                                final detectResponse = await ref
+                                    .read(apiProvider)
+                                    .upload('/fundus/detect', image);
+
+                                log(detectResponse.toString());
+                                await detectResponse.when(
+                                    success: (data) async {
+                                  // Hide loading indicator
+                                  ref.read(loadingProvider.notifier).state =
+                                      false;
+
+                                  // Handle success response here
+                                  final String condition =
+                                      data["condition"] as String;
+
+                                  await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FundusDetailPage(
+                                                condition: condition,
+                                                image: File(widget.imagePath),
+                                              )));
+                                }, error: (error) {
+                                  // Hide loading indicator
+                                  ref.read(loadingProvider.notifier).state =
+                                      false;
+                                  showTopSnackBar(context,
+                                      'Deteksi fundus gagal', Colors.red[700]);
+                                });
+                              },
+                        child: isLoadingDetection
+                            ? SizedBox(
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                                height: 20,
+                                width: 20,
+                              )
+                            : const Text(
+                                'Deteksi',
+                                style: TextStyle(color: Colors.white),
+                              ),
                       ),
                     ),
                   ],

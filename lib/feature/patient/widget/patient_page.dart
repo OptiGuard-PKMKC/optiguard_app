@@ -21,6 +21,7 @@ class _PatientPageState extends State<PatientPage> {
       backgroundColor: AppColors.background,
       appBar: MainAppBar(
         title: 'Pasien Saya',
+        route: '/patient',
       ),
       body: _widgetContent(context),
     );

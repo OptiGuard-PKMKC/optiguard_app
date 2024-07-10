@@ -1,11 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
 
 class FundusDetailPage extends ConsumerStatefulWidget {
-  const FundusDetailPage({super.key});
+  const FundusDetailPage({
+    super.key,
+    this.condition,
+    this.image,
+  });
+
+  final String? condition;
+  final File? image;
 
   @override
   FundusDetailPageState createState() => FundusDetailPageState();
@@ -17,10 +25,12 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
     return Scaffold(
         backgroundColor: AppColors.background,
         appBar: const CustomAppBar(title: 'Hasil Funduskopi'),
-        body: _widgetContent(context, ref));
+        body: _widgetContent(context, ref,
+            condition: widget.condition, image: widget.image));
   }
 
-  Widget _widgetContent(BuildContext context, WidgetRef ref) {
+  Widget _widgetContent(BuildContext context, WidgetRef ref,
+      {String? condition, File? image}) {
     final bool isVerified = false;
 
     return SingleChildScrollView(
@@ -40,10 +50,12 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                   height: 200,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/images/fundus_example.png',
-                      fit: BoxFit.cover,
-                    ),
+                    child: image != null
+                        ? Image.file(image)
+                        : Image.asset(
+                            'assets/images/fundus_example.png',
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -53,7 +65,7 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                   children: [
                     Icon(Icons.date_range_rounded),
                     const SizedBox(width: 8),
-                    Text('Kamis, 12 Juni 2024'),
+                    Text('Rabu, 10 Juli 2024'),
                   ],
                 ),
                 const Row(
@@ -62,7 +74,7 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                   children: [
                     Icon(Icons.access_time_rounded),
                     const SizedBox(width: 8),
-                    Text('21:00'),
+                    Text('16:21'),
                   ],
                 )
               ],
@@ -89,9 +101,11 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Normal',
-                    style: TextStyle(
+                  Text(
+                    condition != null
+                        ? "Terindikasi ${getConditionName(condition)}"
+                        : 'Tidak diketahui',
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: Colors.green,
@@ -240,5 +254,20 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
         );
       },
     );
+  }
+}
+
+String getConditionName(String name) {
+  switch (name.toLowerCase()) {
+    case 'glaucoma':
+      return 'Glaukoma';
+    case 'diabetic_retinopathy':
+      return 'Diabetik Retinopati';
+    case 'normal':
+      return 'Normal';
+    case 'cataract':
+      return 'Katarak';
+    default:
+      return name; // Return original name if no match found
   }
 }

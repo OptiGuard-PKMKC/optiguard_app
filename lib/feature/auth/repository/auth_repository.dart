@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:optiguard/feature/auth/model/token.dart';
@@ -36,8 +37,9 @@ class AuthRepository implements AuthRepositoryProtocol {
       'email': email,
       'password': password,
     };
-    final loginResponse = await _api.post('login', jsonEncode(params));
+    final loginResponse = await _api.post('auth/login', jsonEncode(params));
 
+    log(loginResponse.toString());
     return loginResponse.when(success: (success) async {
       final tokenRepository = _ref.read(tokenRepositoryProvider);
 

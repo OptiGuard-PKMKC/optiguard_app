@@ -1,14 +1,23 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:optiguard/feature/auth/model/token.dart';
+import 'package:optiguard/feature/auth/provider/auth_provider.dart';
+import 'package:optiguard/feature/auth/repository/token_repository.dart';
+import 'package:optiguard/feature/auth/state/auth_state.dart';
 import 'package:optiguard/feature/auth/widget/box_logo.dart';
 import 'package:optiguard/feature/auth/widget/logo.dart';
 import 'package:optiguard/feature/auth/widget/sponsor.dart';
 import 'package:optiguard/feature/auth/widget/text_input.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/constants/role.dart';
+import 'package:optiguard/shared/http/api_provider.dart';
 import 'package:optiguard/shared/route/app_router.dart';
+import 'package:optiguard/shared/util/snackbar.dart';
+import 'package:optiguard/shared/util/validator.dart';
 
 class SignInPage extends ConsumerWidget {
   SignInPage({super.key});
@@ -95,10 +104,74 @@ class SignInPage extends ConsumerWidget {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
-                              onPressed: () {
-                                ref
-                                    .read(routerProvider)
-                                    .go(MainPatientRoute.path);
+                              onPressed: () async {
+                                final email = _emailController.text;
+                                final password = _passwordController.text;
+
+                                if (!Validator.isValidEmail(email)) {
+                                  showTopSnackBar(
+                                      context,
+                                      'Please enter a valid email address',
+                                      Colors.red[700]);
+                                  return;
+                                }
+                                if (!Validator.isValidPassWord(password)) {
+                                  showTopSnackBar(
+                                      context,
+                                      'Minimum 8 characters required',
+                                      Colors.red[700]);
+                                  return;
+                                }
+
+                                final params = {
+                                  'email': email,
+                                  'password': password,
+                                };
+
+                                try {
+                                  final loginResponse = await ref
+                                      .read(apiProvider)
+                                      .post('/auth/login', jsonEncode(params));
+
+                                  loginResponse.when(success: (success) async {
+                                    final String accessToken =
+                                        success["access_token"] as String;
+
+                                    final tokenRepository =
+                                        ref.read(tokenRepositoryProvider);
+                                    final token = Token(token: accessToken);
+
+                                    await tokenRepository.saveToken(token);
+
+                                    final userRole =
+                                        stringToRole(success["role"] as String);
+
+                                    AuthState.loggedIn(role: userRole);
+
+                                    log('Success logged in');
+                                    showTopSnackBar(
+                                        context,
+                                        "Selamat datang ${success["name"]}",
+                                        AppColors.green);
+
+                                    if (userRole == Role.patient) {
+                                      ref
+                                          .read(routerProvider)
+                                          .go(MainPatientRoute.path);
+                                    } else if (userRole == Role.doctor) {
+                                      ref
+                                          .read(routerProvider)
+                                          .go(MainDoctorRoute.path);
+                                    }
+                                  }, error: (error) {
+                                    return showTopSnackBar(context,
+                                        error.toString(), Colors.red[700]);
+                                  });
+                                } catch (e) {
+                                  // Handle general exceptions
+                                  showTopSnackBar(
+                                      context, e.toString(), Colors.red[700]);
+                                }
                               },
                               child: const Text(
                                 'Masuk',
@@ -166,7 +239,7 @@ class SignInPage extends ConsumerWidget {
                             GestureDetector(
                               onTap: () {
                                 log('Daftar');
-                                   ref
+                                ref
                                     .read(routerProvider)
                                     .go(MainDoctorRoute.path);
                               },
@@ -190,5 +263,16 @@ class SignInPage extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+Role stringToRole(String roleString) {
+  switch (roleString) {
+    case 'doctor':
+      return Role.doctor;
+    case 'patient':
+      return Role.patient;
+    default:
+      throw Exception('Unknown role: $roleString');
   }
 }
