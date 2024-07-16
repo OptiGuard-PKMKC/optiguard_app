@@ -32,7 +32,7 @@ class DatabaseLoader {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'db_optiguard.db');
     log("Database path: $path");
-    await deleteDatabase(path);
+    // await deleteDatabase(path);
     Database db = await openDatabase(path, version: 3, onCreate: _onCreate);
     return db;
   }
