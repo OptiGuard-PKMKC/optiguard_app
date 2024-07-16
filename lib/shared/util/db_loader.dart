@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-const String TABLE_IMAGES = 'images';
+const String TABLE_IMAGES = 'funduses';
 const String TABLE_ARTICLES = 'articles';
 
 final dbLoadProvider = Provider((ref) => DatabaseLoader());
@@ -32,6 +32,7 @@ class DatabaseLoader {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'db_optiguard.db');
     log("Database path: $path");
+    // await deleteDatabase(path);
     Database db = await openDatabase(path, version: 1, onCreate: _onCreate);
     return db;
   }
@@ -41,7 +42,11 @@ class DatabaseLoader {
       CREATE TABLE IF NOT EXISTS $TABLE_IMAGES(
         id INTEGER PRIMARY KEY,
         userId INTEGER,
-        imagePath TEXT
+        imagePath TEXT,
+        verified INTEGER DEFAULT 0,
+        status TEXT DEFAULT 'Pending',
+        condition TEXT DEFAULT 'Normal',
+        createdAt TEXT DEFAULT CURRENT_TIMESTAMP
       );
     ''');
 
@@ -71,20 +76,38 @@ class DatabaseLoader {
     await batch.commit();
   }
 
-  Future<int> insertImage(int userId, String imagePath) async {
+  Future<int> insertImage(int userId, String imagePath, bool verified, String status, String condition, DateTime createdAt) async {
     Database db = await database;
     return await db
-        .insert(TABLE_IMAGES, {'userId': userId, 'imagePath': imagePath});
+        .insert(TABLE_IMAGES, {
+          'userId': userId, 
+          'imagePath': imagePath,
+          'verified': verified,
+          'status': status,
+          'condition': condition,
+          'createdAt': createdAt.toIso8601String()
+        });
   }
 
-  Future<List<Map<String, dynamic>>> getImagesByUserId(int userId) async {
+  Future<List<Map<String, dynamic>>> getImages() async {
     Database db = await database;
-    return await db.query(
-      TABLE_IMAGES,
-      where: 'userId = ?',
-      whereArgs: [userId],
-    );
+    return await db.query(TABLE_IMAGES, orderBy: 'createdAt DESC');
   }
+
+  // Delete image by id
+  Future<int> deleteImage(int id) async {
+    Database db = await database;
+    return await db.delete(TABLE_IMAGES, where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Future<List<Map<String, dynamic>>> getImagesByUserId(int userId) async {
+  //   Database db = await database;
+  //   return await db.query(
+  //     TABLE_IMAGES,
+  //     where: 'userId = ?',
+  //     whereArgs: [userId],
+  //   );
+  // }
 
   Future<List<Article>> getArticles() async {
     final db = await database;

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl_standalone.dart';
 import 'package:optiguard/app/app.dart';
 import 'package:optiguard/shared/util/camera.dart';
 import 'package:optiguard/shared/util/db_loader.dart';
@@ -23,6 +24,8 @@ Future<void> start() async {
 
   final cameraState = CameraState();
   await cameraState.initializeCamera();
+
+  Intl.systemLocale = await findSystemLocale();
 
   final platformType = detectPlatformType();
 

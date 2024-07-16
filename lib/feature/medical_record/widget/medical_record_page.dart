@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:optiguard/feature/medical_record/widget/fundus_history_list.dart';
+import 'package:optiguard/feature/fundus_record/widget/fundus_history_list.dart';
 import 'package:optiguard/feature/medical_record/widget/medical_record_list.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/route/app_router.dart';

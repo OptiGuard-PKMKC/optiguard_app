@@ -113,7 +113,7 @@ class ApiProvider {
       }
 
       if (response.statusCode! < 300) {
-        return APIResponse.success(response.data['data']);
+        return APIResponse.success(response.data);
       } else {
         return APIResponse.error(AppException.errorWithMessage(
             'Failed to upload. Status code: ${response.statusCode}'));

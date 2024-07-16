@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:optiguard/feature/fundus_capture/provider/fundus_capture_provider.dart';
-import 'package:optiguard/feature/medical_record/widget/fundus_history_list.dart';
+import 'package:optiguard/feature/fundus_record/widget/fundus_history_list.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
 import 'package:optiguard/shared/util/camera.dart';
 
@@ -261,8 +261,11 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                                         size: 40,
                                         color: Colors.black87,
                                       ),
-                                      onPressed: () async {
-                                        await _pickImage();
+                                      onPressed: () {
+                                        ref
+                                            .read(fundusCaptureNotifierProvider
+                                                .notifier)
+                                            .pickImage(context);
                                       },
                                     ),
                                     GestureDetector(

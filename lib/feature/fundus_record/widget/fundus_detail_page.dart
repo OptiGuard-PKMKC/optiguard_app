@@ -1,8 +1,12 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/util/global.dart';
 import 'package:optiguard/shared/widget/app_bar.dart';
 
 class FundusDetailPage extends ConsumerStatefulWidget {
@@ -10,10 +14,14 @@ class FundusDetailPage extends ConsumerStatefulWidget {
     super.key,
     this.condition,
     this.image,
+    this.isVerified = false,
+    this.date,
   });
 
   final String? condition;
   final File? image;
+  final bool isVerified;
+  final DateTime? date;
 
   @override
   FundusDetailPageState createState() => FundusDetailPageState();
@@ -21,17 +29,31 @@ class FundusDetailPage extends ConsumerStatefulWidget {
 
 class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
   @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.background,
-        appBar: const CustomAppBar(title: 'Hasil Funduskopi'),
+        appBar:  const CustomAppBar(
+          title: 'Hasil Funduskopi',
+        ),
         body: _widgetContent(context, ref,
             condition: widget.condition, image: widget.image));
   }
 
   Widget _widgetContent(BuildContext context, WidgetRef ref,
       {String? condition, File? image}) {
-    final bool isVerified = false;
+
+    String date = DateTime.now().toString();    
+    // Format the date to "day name, date"
+    String formattedDate =
+        DateFormat('EEEE, d MMMM y', "id").format(widget.date ?? DateTime.parse(date));
+    // Format the time separately
+    String formattedTime = DateFormat('HH:mm', "id").format(widget.date ?? DateTime.parse(date));
 
     return SingleChildScrollView(
       physics: AlwaysScrollableScrollPhysics(),
@@ -59,22 +81,22 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Row(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.date_range_rounded),
                     const SizedBox(width: 8),
-                    Text('Rabu, 10 Juli 2024'),
+                    Text(formattedDate),
                   ],
                 ),
-                const Row(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.access_time_rounded),
                     const SizedBox(width: 8),
-                    Text('16:21'),
+                    Text(formattedTime),
                   ],
                 )
               ],
@@ -142,12 +164,16 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                       Row(
                         children: [
                           Icon(
-                            isVerified ? Icons.verified_rounded : Icons.pending,
-                            color: isVerified ? AppColors.blue : Colors.orange,
+                            widget.isVerified
+                                ? Icons.verified_rounded
+                                : Icons.pending,
+                            color: widget.isVerified
+                                ? AppColors.blue
+                                : Colors.orange,
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            isVerified
+                            widget.isVerified
                                 ? 'Sudah diverifikasi oleh dokter'
                                 : 'Belum diverifikasi oleh dokter',
                             style: const TextStyle(
@@ -164,7 +190,7 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
                     height: 32,
                     color: Colors.grey[200],
                   ),
-                  if (isVerified)
+                  if (widget.isVerified)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -257,17 +283,4 @@ class FundusDetailPageState extends ConsumerState<FundusDetailPage> {
   }
 }
 
-String getConditionName(String name) {
-  switch (name.toLowerCase()) {
-    case 'glaucoma':
-      return 'Glaukoma';
-    case 'diabetic_retinopathy':
-      return 'Diabetik Retinopati';
-    case 'normal':
-      return 'Normal';
-    case 'cataract':
-      return 'Katarak';
-    default:
-      return name; // Return original name if no match found
-  }
-}
+
