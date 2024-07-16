@@ -17,6 +17,7 @@ import 'package:optiguard/feature/chat/widget/chat_room_page.dart';
 import 'package:optiguard/feature/doctor_profile/widget/doctor_profile_page.dart';
 import 'package:optiguard/feature/education/widget/education_page.dart';
 import 'package:optiguard/feature/fundus_capture/widget/fundus_capture_page.dart';
+import 'package:optiguard/feature/fundus_capture/widget/fundus_help_page.dart';
 import 'package:optiguard/feature/fundus_record/widget/fundus_detail_page.dart';
 import 'package:optiguard/feature/home/widget/home_page.dart';
 import 'package:optiguard/feature/home_doctor/widget/home_doctor_page.dart';
@@ -206,6 +207,17 @@ class FundusDetailRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const FundusDetailPage();
+  }
+}
+
+@TypedGoRoute<FundusHelpRoute>(path: FundusHelpRoute.path)
+class FundusHelpRoute extends GoRouteData {
+  const FundusHelpRoute();
+  static const path = '/fundusHelp';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const FundusHelpPage();
   }
 }
 

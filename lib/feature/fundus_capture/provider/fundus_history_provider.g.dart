@@ -7,7 +7,7 @@ part of 'fundus_history_provider.dart';
 // **************************************************************************
 
 String _$fundusHistoryNotifierHash() =>
-    r'efc69c13ba53eb55467aba3500c545ed7302d928';
+    r'b5593a5f05c2a92914c38d5ec7181efb4ce4cc98';
 
 /// See also [FundusHistoryNotifier].
 @ProviderFor(FundusHistoryNotifier)

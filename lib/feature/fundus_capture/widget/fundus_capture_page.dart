@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:optiguard/feature/fundus_capture/provider/fundus_capture_provider.dart';
 import 'package:optiguard/feature/fundus_record/widget/fundus_history_list.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/route/app_router.dart';
 import 'package:optiguard/shared/util/camera.dart';
 
 const double _kDraggableSize = 0.2;
@@ -152,7 +153,9 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                     Icons.question_mark_rounded,
                     size: 16,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push(FundusHelpRoute.path);
+                  },
                 ),
               ),
             ],
@@ -232,7 +235,7 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                       SliverToBoxAdapter(
                         child: Container(
                           margin: const EdgeInsets.symmetric(
-                              horizontal: 170, vertical: 8),
+                              horizontal: 160, vertical: 8),
                           width: MediaQuery.of(context).size.width - 200,
                           height: 4,
                           decoration: BoxDecoration(
@@ -258,7 +261,7 @@ class FundusCapturePageState extends ConsumerState<FundusCapturePage> {
                                     IconButton(
                                       icon: const Icon(
                                         Icons.image_rounded,
-                                        size: 40,
+                                        size: 36,
                                         color: Colors.black87,
                                       ),
                                       onPressed: () {

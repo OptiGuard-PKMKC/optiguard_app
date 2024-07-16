@@ -56,6 +56,46 @@ class $AssetsImagesGen {
   AssetGenImage get personExample =>
       const AssetGenImage('assets/images/person_example.png');
 
+  /// File path: assets/images/tutorial_01.jpg
+  AssetGenImage get tutorial01 =>
+      const AssetGenImage('assets/images/tutorial_01.jpg');
+
+  /// File path: assets/images/tutorial_02.jpg
+  AssetGenImage get tutorial02 =>
+      const AssetGenImage('assets/images/tutorial_02.jpg');
+
+  /// File path: assets/images/tutorial_03.jpg
+  AssetGenImage get tutorial03 =>
+      const AssetGenImage('assets/images/tutorial_03.jpg');
+
+  /// File path: assets/images/tutorial_04.jpg
+  AssetGenImage get tutorial04 =>
+      const AssetGenImage('assets/images/tutorial_04.jpg');
+
+  /// File path: assets/images/tutorial_05.jpg
+  AssetGenImage get tutorial05 =>
+      const AssetGenImage('assets/images/tutorial_05.jpg');
+
+  /// File path: assets/images/tutorial_06.jpg
+  AssetGenImage get tutorial06 =>
+      const AssetGenImage('assets/images/tutorial_06.jpg');
+
+  /// File path: assets/images/tutorial_07.jpg
+  AssetGenImage get tutorial07 =>
+      const AssetGenImage('assets/images/tutorial_07.jpg');
+
+  /// File path: assets/images/tutorial_08.jpg
+  AssetGenImage get tutorial08 =>
+      const AssetGenImage('assets/images/tutorial_08.jpg');
+
+  /// File path: assets/images/tutorial_09.jpg
+  AssetGenImage get tutorial09 =>
+      const AssetGenImage('assets/images/tutorial_09.jpg');
+
+  /// File path: assets/images/tutorial_10.jpg
+  AssetGenImage get tutorial10 =>
+      const AssetGenImage('assets/images/tutorial_10.jpg');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         amslerFailed,
@@ -64,7 +104,17 @@ class $AssetsImagesGen {
         amslerSuccess,
         fundusExample,
         medRecordExample,
-        personExample
+        personExample,
+        tutorial01,
+        tutorial02,
+        tutorial03,
+        tutorial04,
+        tutorial05,
+        tutorial06,
+        tutorial07,
+        tutorial08,
+        tutorial09,
+        tutorial10
       ];
 }
 
