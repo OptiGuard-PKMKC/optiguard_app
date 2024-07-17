@@ -97,7 +97,7 @@ class HomePage extends ConsumerWidget {
               CardFeature(
                 title: 'Akses Alat di Faskes',
                 icon: Icons.device_hub,
-                route: '',
+                route: HealthFacilityRoute.path,
                 subTitle: 'Pakai alat yang tersedia di mitra kami',
                 bgIconColor: AppColors.green,
               )

@@ -10,6 +10,7 @@ import 'package:optiguard/feature/amsler_grid/widget/amsler_help_page.dart';
 import 'package:optiguard/feature/amsler_grid/widget/amsler_success_page.dart';
 import 'package:optiguard/feature/amsler_grid/widget/amsler_test_page.dart';
 import 'package:optiguard/feature/appointment/widget/appointment_page.dart';
+import 'package:optiguard/feature/appointment/widget/health_facility_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_in_page.dart';
 import 'package:optiguard/feature/auth/widget/sign_up_page.dart';
 import 'package:optiguard/feature/chat/widget/chat_page.dart';
@@ -218,6 +219,17 @@ class FundusHelpRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const FundusHelpPage();
+  }
+}
+
+@TypedGoRoute<HealthFacilityRoute>(path: HealthFacilityRoute.path)
+class HealthFacilityRoute extends GoRouteData {
+  const HealthFacilityRoute();
+  static const path = '/healthFacility';
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const HealthFacilityPage();
   }
 }
 
