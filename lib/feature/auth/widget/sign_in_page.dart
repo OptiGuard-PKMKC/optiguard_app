@@ -10,6 +10,7 @@ import 'package:optiguard/feature/auth/repository/token_repository.dart';
 import 'package:optiguard/feature/auth/state/auth_state.dart';
 import 'package:optiguard/feature/auth/widget/box_logo.dart';
 import 'package:optiguard/feature/auth/widget/logo.dart';
+import 'package:optiguard/feature/auth/widget/register_page.dart';
 import 'package:optiguard/feature/auth/widget/sponsor.dart';
 import 'package:optiguard/feature/auth/widget/text_input.dart';
 import 'package:optiguard/shared/constants/app_theme.dart';
@@ -239,9 +240,11 @@ class SignInPage extends ConsumerWidget {
                             GestureDetector(
                               onTap: () {
                                 log('Daftar');
-                                ref
-                                    .read(routerProvider)
-                                    .go(MainDoctorRoute.path);
+                                // ref
+                                //     .read(routerProvider)
+                                //     .go(MainDoctorRoute.path);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => RegisterPage()));
                               },
                               child: const Text(
                                 'Daftar',
