@@ -18,15 +18,15 @@ class ChatNotifier extends _$ChatNotifier {
           message:
               'Mata Anda terlihat sehat, tetap jaga kesehatan mata Anda dengan mengonsumsi makanan yang bergizi dan hindari paparan sinar UV',
           time: '10:00',
-          avatarUrl: 'assets/avatar_dokter.jpg',
+          avatarUrl: 'assets/avatar_dokter_2.png',
           isRead: false),
       ChatItem(
           chatId: 'adkjha9d',
-          name: 'dr. Priscil, Sp.M',
+          name: 'dr. Sonie Umbara, Sp.M',
           message:
-              'Mata Anda terlihat sehat, tetap jaga kesehatan mata Anda dengan mengonsumsi makanan yang bergizi dan hindari paparan sinar UV',
+              'Tetap jaga kesehatan mata Anda dengan mengonsumsi makanan yang bergizi dan hindari paparan sinar UV',
           time: '10:00',
-          avatarUrl: 'assets/avatar_dokter.jpg',
+          avatarUrl: 'assets/avatar_dokter_3.png',
           isRead: false),
     ];
 
