@@ -7,12 +7,33 @@ import 'package:optiguard/shared/http/app_exception.dart';
 import 'package:optiguard/shared/route/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:optiguard/shared/widget/button.dart';
 
-class DoctorProfilePage extends ConsumerWidget {
+class DoctorProfilePage extends ConsumerStatefulWidget {
   const DoctorProfilePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _DoctorProfilePageState createState() => _DoctorProfilePageState();
+}
+
+class _DoctorProfilePageState extends ConsumerState<DoctorProfilePage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -49,6 +70,35 @@ class DoctorProfilePage extends ConsumerWidget {
   Widget _widgetContent(BuildContext context, WidgetRef ref) {
     final homeState = ref.watch(homeNotifierProvider);
 
+    Widget iconBadge(IconData icon, Color? iconColor, String text) {
+      var iColor = AppColors.blue;
+
+      if (iconColor != null) {
+        iColor = iconColor;
+      }
+
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black12),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 16, color: iColor),
+            const SizedBox(width: 6),
+            Text(
+              text,
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black54),
+            ),
+          ],
+        ),
+      );
+    }
+
     return homeState.when(
       loading: () => _widgetLoading(context, ref),
       loaded: (data) => Stack(
@@ -57,18 +107,23 @@ class DoctorProfilePage extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: 120,
-                  height: 120,
+                  width: 132,
+                  height: 132,
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: AssetImage('assets/avatar_dokter_2.png'),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Dr. John Doe',
+                  'dr. Grimaldi Ihsan, Sp.M.',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -82,8 +137,16 @@ class DoctorProfilePage extends ConsumerWidget {
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text('STR: 1234567890'),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    iconBadge(Icons.work_history, null, '8 tahun'),
+                    const SizedBox(width: 8),
+                    iconBadge(Icons.star, Colors.orange, '4.8'),
+                  ],
+                ),
+                // Text('STR: 1234567890'),
               ],
             ),
           ),
@@ -101,53 +164,96 @@ class DoctorProfilePage extends ConsumerWidget {
                           topRight: Radius.circular(20),
                         ),
                         border: Border.all(color: Colors.grey, width: 1)),
-                    child: Column(
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.symmetric(vertical: 12),
-                            width: 60,
-                            height: 4,
-                            decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(10),
-                            )),
-                        DefaultTabController(
-                            length: 2,
-                            child: Expanded(
-                              child: Column(
-                                children: [
-                                  TabBar(
-                                    tabs: const [
-                                      Tab(text: 'Jadwal'),
-                                      Tab(text: 'Profil Lengkap')
-                                    ],
-                                    dividerHeight: 1,
-                                    dividerColor: Colors.grey[300],
-                                  ),
-                                  Expanded(
-                                    child: TabBarView(
+                    child: CustomScrollView(
+                      controller: scrollController,
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 160),
+                              width: double.infinity,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(10),
+                              )),
+                        ),
+                        SliverAppBar(
+                          expandedHeight: 0,
+                          elevation: 0,
+                          backgroundColor: Colors.white,
+                          surfaceTintColor: Colors.white,
+                          leading: Container(),
+                          pinned: true,
+                          floating: true,
+                          bottom: TabBar(
+                            controller: _tabController,
+                            tabs: [
+                              Tab(text: 'Jadwal'),
+                              Tab(text: 'Profil Lengkap'),
+                            ],
+                          ),
+                        ),
+                        SliverFillRemaining(
+                          child: TabBarView(
+                            controller: _tabController,
+                            children: [
+                              Container(
+                                // width media query
+                                width: MediaQuery.of(context).size.width,
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _scheduleDate(context, ref),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Column(
-                                            children: [
-                                              // _scheduleDate(),
-                                              _listSchedule(context, ref),
-                                            ],
-                                          ),
+                                            padding: const EdgeInsets.all(8),
+                                            child: Text(
+                                              '07.00 - 08.00',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                        Divider(
+                                          color: Colors.grey,
                                         ),
                                         Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 16),
-                                          child: _profilDetail(
-                                              context, scrollController),
-                                        )
+                                            padding: const EdgeInsets.all(8),
+                                            child: Text(
+                                              '08.00 - 09.00',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                        Divider(
+                                          color: Colors.grey,
+                                        ),
+                                        Container(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Text(
+                                              '09.00 - 10.00',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            )),
+                                        Divider(
+                                          color: Colors.grey,
+                                        ),
                                       ],
                                     ),
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
-                            ))
+                              _profilDetail(context)
+                            ],
+                          ),
+                        ),
                       ],
                     ));
               })
@@ -159,16 +265,11 @@ class DoctorProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _profilDetail(
-      BuildContext context, ScrollController parentController) {
-    return NotificationListener<DraggableScrollableNotification>(
-      onNotification: (notif) {
-        if (notif.extent == notif.minExtent) {
-          parentController.jumpTo(parentController.position.minScrollExtent);
-        }
-        return true;
-      },
-      child: ListView(
+  Widget _profilDetail(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 16,
@@ -184,7 +285,7 @@ class DoctorProfilePage extends ConsumerWidget {
           ),
           const ProfileDetailItem(
             title: 'PENGALAMAN PRAKTIK',
-            content: Text('Rumah Sakit Mata A'),
+            content: Text('Rumah Sakit Mata Cicendo'),
           ),
           Divider(
             thickness: 1,
@@ -199,12 +300,12 @@ class DoctorProfilePage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Universitas Telkom',
+                      'Universitas Padjajaran',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
-                    Text('Dokter Umum'),
-                    Text('2010 - 2016'),
+                    Text('Spesialis Mata'),
+                    Text('2016 - 2018'),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -212,7 +313,7 @@ class DoctorProfilePage extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Universitas Telkom',
+                      'Universitas Padjajaran',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
@@ -220,19 +321,6 @@ class DoctorProfilePage extends ConsumerWidget {
                     Text('2010 - 2016'),
                   ],
                 ),
-                const SizedBox(height: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Universitas Telkom',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                    Text('Dokter Umum'),
-                    Text('2010 - 2016'),
-                  ],
-                )
               ],
             ),
           ),
@@ -244,13 +332,70 @@ class DoctorProfilePage extends ConsumerWidget {
     );
   }
 
+  Widget _scheduleDate(BuildContext context, WidgetRef ref) {
+    return Container(
+      height: 60,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(4),
+            child: Icon(Icons.calendar_month_rounded),
+          ),
+          SizedBox(
+            width: 4,
+          ),
+          Expanded(
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 14,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                          color: Colors.blue[50],
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${index + 1}',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            '3 Jadwal',
+                            style: TextStyle(fontSize: 10),
+                          )
+                        ],
+                      ),
+                    );
+                  }))
+        ],
+      ),
+    );
+  }
+
   Widget _listSchedule(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return Text('Jadwal ke $index');
-        },
+    return Column(
+      children: [RowScheduleWidget()],
+    );
+  }
+}
+
+class RowScheduleWidget extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          Row(
+            children: [Icon(Icons.timer_sharp), Text('08:00 - 09:00')],
+          ),
+          CustomElevatedButton(title: 'Pilih')
+        ],
       ),
     );
   }

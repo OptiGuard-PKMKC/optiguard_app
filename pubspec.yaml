@@ -1,6 +1,6 @@
 name: optiguard
 description: OptiGuard is a mobile application that helps you to early detect eye diseases using integrated AI.
-version: 1.0.5+1
+version: 1.0.5+2
 publish_to: none
 
 environment:

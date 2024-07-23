@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:optiguard/feature/home/provider/books_provider.dart';
-import 'package:optiguard/feature/home/provider/home_provider.dart';
-import 'package:optiguard/feature/home/widget/row_book_widget.dart';
-import 'package:optiguard/shared/constants/app_theme.dart';
-import 'package:optiguard/shared/http/app_exception.dart';
-import 'package:optiguard/shared/route/app_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:optiguard/feature/home/provider/home_provider.dart';
+import 'package:optiguard/shared/constants/app_theme.dart';
+import 'package:optiguard/shared/route/app_router.dart';
 
 class AppointmentPage extends ConsumerWidget {
   const AppointmentPage({super.key});
@@ -68,11 +65,11 @@ class AppointmentPage extends ConsumerWidget {
             IconButton(
               icon: Container(
                 padding: const EdgeInsets.all(4),
-                child: const Icon(Icons.filter_alt_outlined),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(24),
                 ),
+                child: const Icon(Icons.filter_alt_outlined),
               ),
               onPressed: () {},
             ),
@@ -166,7 +163,8 @@ class AppointmentPage extends ConsumerWidget {
       );
     }
 
-    Widget cardDoctor() {
+    Widget cardDoctor(
+        String name, String imagePath, int workYears, double rating) {
       return InkWell(
         onTap: () {
           context.push(DoctorProfileRoute.path);
@@ -183,6 +181,10 @@ class AppointmentPage extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadius.circular(16),
+                  image: DecorationImage(
+                    image: AssetImage(imagePath),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
@@ -190,9 +192,9 @@ class AppointmentPage extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Dr. John Doe',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  Text(
+                    name,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                   const Text('Dokter Spesialis Mata'),
                   const SizedBox(
@@ -200,9 +202,9 @@ class AppointmentPage extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      iconBadge(Icons.work_history, null, '3 tahun'),
+                      iconBadge(Icons.work_history, null, '$workYears tahun'),
                       const SizedBox(width: 8),
-                      iconBadge(Icons.star, Colors.orange, '4.5'),
+                      iconBadge(Icons.star, Colors.orange, rating.toString()),
                     ],
                   ),
                 ],
@@ -213,10 +215,12 @@ class AppointmentPage extends ConsumerWidget {
       );
     }
 
-    final cardDoctors = <Widget>[];
-    for (var i = 0; i < 10; i++) {
-      cardDoctors.add(cardDoctor());
-    }
+    final cardDoctors = <Widget>[
+      cardDoctor(
+          'dr. Grimaldi Ihsan, Sp.M.', 'assets/avatar_dokter_2.png', 8, 4.9),
+      cardDoctor(
+          'dr. Sonie Umbara, Sp.M.', 'assets/avatar_dokter_3.png', 4, 4.5),
+    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
